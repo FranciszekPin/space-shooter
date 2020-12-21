@@ -1,0 +1,8 @@
+# ignore all files
+/*
+
+# except those
+!README.md
+!.gitignore
+!*.h
+!*.cpp
