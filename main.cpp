@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include "sdlsystem.h"
-
-//Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+#include "constants.h"
 
 int main(int argc, char *args[]) {
     //The window we'll be rendering to
