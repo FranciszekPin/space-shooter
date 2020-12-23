@@ -6,8 +6,7 @@ int main(int argc, char *args[]) {
     //The window we'll be rendering to
     SDL_Window *window = NULL;
 
-    //The surface contained by the window
-    SDL_Surface *screenSurface = NULL;
+    SDL_Renderer *renderer;
 
     SDL_Surface *image = NULL;
 
@@ -22,30 +21,41 @@ int main(int argc, char *args[]) {
             printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         } else {
             //Get window surface
-            screenSurface = SDL_GetWindowSurface(window);
-
-            //Fill the surface white
-            SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
-
-            image = SDL_LoadBMP("assets/purple_rectangle.bmp");
-
-            if(image == NULL )
-            {
-                printf( "Unable to load image %s! SDL Error: %s\n", "assets/purple_rectangle.bmp", SDL_GetError());
-            } else {
-                SDL_BlitSurface(image, NULL, screenSurface, NULL);
+            renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+            if( renderer == NULL ) {
+                printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
             }
-            //Update the surface
-            SDL_UpdateWindowSurface(window);
+            else {
+                //Initialize renderer color
+                SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF );
 
-            //Wait two seconds
-            SDL_Delay(10000);
+                //Main loop flag
+                bool quit = false;
+
+                //Event handler
+                SDL_Event e;
+
+                while (!quit) {
+                    while (SDL_PollEvent(&e) != 0) {
+                        if (e.type == SDL_QUIT) {
+                            quit = true;
+                        }
+                    }
+                    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+                    SDL_RenderClear(renderer);
+
+                    //Render red filled quad
+                    SDL_Rect fillRect = {SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
+                    SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+                    SDL_RenderFillRect(renderer, &fillRect);
+
+                    SDL_RenderPresent(renderer);
+                }
+
+            }
+
         }
     }
-
-    SDL_FreeSurface(image);
-    image = NULL;
-
 
     //Destroy window
     SDL_DestroyWindow(window);
