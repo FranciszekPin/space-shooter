@@ -16,6 +16,8 @@ int main(int argc, char *args[]) {
     //The surface contained by the window
     SDL_Surface *screenSurface = NULL;
 
+    SDL_Surface *image = NULL;
+
     //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -32,6 +34,14 @@ int main(int argc, char *args[]) {
             //Fill the surface white
             SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
 
+            image = SDL_LoadBMP("assets/purple_rectangle.bmp");
+
+            if(image == NULL )
+            {
+                printf( "Unable to load image %s! SDL Error: %s\n", "assets/purple_rectangle.bmp", SDL_GetError());
+            } else {
+                SDL_BlitSurface(image, NULL, screenSurface, NULL);
+            }
             //Update the surface
             SDL_UpdateWindowSurface(window);
 
@@ -39,8 +49,15 @@ int main(int argc, char *args[]) {
             SDL_Delay(10000);
         }
     }
+
+    SDL_FreeSurface(image);
+    image = NULL;
+
+
     //Destroy window
     SDL_DestroyWindow(window);
+
+
 
     //Quit SDL subsystems
     SDL_Quit();
