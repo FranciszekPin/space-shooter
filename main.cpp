@@ -1,4 +1,8 @@
-#include <SDL2/SDL.h>
+#ifdef __linux__ 
+    #include <SDL2/SDL.h>
+#else
+    #include <SDL.h>
+#endif
 #include <stdio.h>
 
 //Screen dimension constants
