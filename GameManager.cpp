@@ -35,4 +35,23 @@ bool GameManager::init() {
     return success;
 }
 
+void GameManager::startGame() {
+
+    bool quit = false;
+
+    SDL_Event e;
+
+    while (!quit) {
+        SDL_SetRenderDrawColor (renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_RenderClear (renderer);
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+
+        // adding all render objects should be done before this function
+        SDL_RenderPresent(renderer);
+    }
+}
 
