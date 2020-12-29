@@ -48,6 +48,22 @@ void GameManager::startGame() {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
+            if (e.type == SDL_KEYDOWN) {
+                switch (e.key.keysym.sym) {
+                    case SDLK_SPACE:
+
+                        // spaceship opens fire
+                        break;
+                    case SDLK_LEFT:
+
+                        // move spaceship left
+                        break;
+                    case SDLK_RIGHT:
+
+                        // move spaceship right
+                        break;
+                }
+            }
         }
 
         // adding all render objects should be done before this function
