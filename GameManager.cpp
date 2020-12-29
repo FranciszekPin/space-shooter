@@ -55,3 +55,7 @@ void GameManager::startGame() {
     }
 }
 
+GameManager::~GameManager() {
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
