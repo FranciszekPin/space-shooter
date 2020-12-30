@@ -2,33 +2,28 @@
 #include "Enemy.h"
 #include "constants.h"
 #include <string>
+#include"sdlsystem.h"
 
-SDL_Surface* Enemy::loadImage(const char *enemy_img)
+
+
+
+void Enemy::loadIMG(SDL_Renderer* renderer, const char* img_src)
 {
-    //Loading success flag
-    bool success = true;
-    SDL_Surface* enemy;
-    //Load splash image
-    enemy = SDL_LoadBMP(enemy_img);
-    if (enemy == NULL)
-    {
-        printf("Unable to load image %s! SDL Error: %s\n", enemy_img, SDL_GetError());
-        success = false;
-    }
-
-    return enemy;
-
+	SDL_Surface* tmpSurface = IMG_Load(img_src);
+	enemyIMG = SDL_CreateTextureFromSurface(renderer, tmpSurface);
+	SDL_FreeSurface(tmpSurface);
 }
 
-void Enemy::move(double delta_time, SDL_Surface* background)
+void Enemy::move()
 {
-    SDL_FillRect(enemyIMG, NULL, SDL_MapRGB(enemyIMG->format, 0, 0, 0));
-    if (enemyIMG) {
-        enemy_y = enemy_y + (5 * delta_time);
-        position.y = enemy_y;
-      
-        enemyIMG = loadImage("monster2.bmp");
-        SDL_BlitSurface(enemyIMG, NULL, background, &position);
-        
-    }
+	position.y += velocity;
+	if (position.x <= 0)
+		movevector = false;
+	if (position.x >= SCREEN_WIDTH - 50)
+		movevector = true;
+	if (movevector == true)
+		position.x -= 4 * velocity;
+	else
+		position.x += 4 * velocity;
+
 }

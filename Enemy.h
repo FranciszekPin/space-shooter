@@ -5,14 +5,15 @@
 #include "sdlsystem.h"
 
 class Enemy
-{	
+{
 public:
-	SDL_Surface* loadImage(const char* enemy_img);
-	SDL_Surface* enemyIMG;
+
 	SDL_Rect position;
-	
-	double enemy_y=0.0;
-	void move(double delta_time, SDL_Surface* background);
+	SDL_Texture* enemyIMG;
+	void loadIMG(SDL_Renderer* renderer, const char* img_src);
+	void move();
+	int  velocity = 1;
+	bool movevector = true;
 };
 
-#endif //SPACE_SHOOTER_ENEMY_H
+#endif //SPACE_S
