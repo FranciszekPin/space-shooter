@@ -14,8 +14,10 @@ void Enemy::loadIMG(SDL_Renderer* renderer, const char* img_src)
 	SDL_FreeSurface(tmpSurface);
 }
 
-void Enemy::move()
+void Enemy::move(SDL_Renderer* renderer, const char* img_src)
 {
+
+	loadIMG(renderer, img_src);
 	position.y += velocity;
 	if (position.x <= 0)
 		movevector = false;
@@ -25,5 +27,5 @@ void Enemy::move()
 		position.x -= 4 * velocity;
 	else
 		position.x += 4 * velocity;
-
+	SDL_RenderCopy(renderer, enemyIMG, NULL, &position);
 }
