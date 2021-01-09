@@ -1,3 +1,7 @@
+//
+// Created by learning-account on 23.12.2020.
+//
+
 #ifndef UNTITLED2_SDLSYSTEM_H
 #define UNTITLED2_SDLSYSTEM_H
 
