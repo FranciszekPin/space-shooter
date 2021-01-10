@@ -6,14 +6,15 @@
 
 class Enemy
 {
-public:
-
+private:
+	bool moveVector = true;
 	SDL_Rect position;
-	SDL_Texture* enemyIMG;
-	void loadIMG(SDL_Renderer* renderer, const char* img_src);
-	void move(SDL_Renderer* renderer, const char* img_src);
+	SDL_Texture* enemyImg;
+public:
+	Enemy(SDL_Renderer* renderer, const char imgSrc);
+	void move();
+	~Enemy();
 	int  velocity = 1;
-	bool movevector = true;
 };
 
 #endif //SPACE_S

@@ -7,17 +7,21 @@
 
 
 
-void Enemy::loadIMG(SDL_Renderer* renderer, const char* img_src)
+Enemy::Enemy(SDL_Renderer *renderer, const char imgSrc)
 {
-	SDL_Surface* tmpSurface = IMG_Load(img_src);
+	SDL_Surface* tmpSurface = IMG_Load(imgSrc);
 	enemyIMG = SDL_CreateTextureFromSurface(renderer, tmpSurface);
 	SDL_FreeSurface(tmpSurface);
 }
 
-void Enemy::move(SDL_Renderer* renderer, const char* img_src)
+Enemy::~Enemy()
 {
+	SDL_DestroyTexture(enemyImg);
+}
 
-	loadIMG(renderer, img_src);
+
+void Enemy::move()
+{
 	position.y += velocity;
 	if (position.x <= 0)
 		movevector = false;
