@@ -10,8 +10,9 @@ private:
 	bool moveVector = true;
 	SDL_Rect position;
 	SDL_Texture* enemyImg;
+	SDL_Renderer *renderer;
 public:
-	Enemy(SDL_Renderer* renderer, const char imgSrc);
+    Enemy(SDL_Renderer *renderer, const char * imgSrc);
 	void move();
 	~Enemy();
 	int  velocity = 1;

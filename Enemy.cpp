@@ -2,16 +2,18 @@
 #include "Enemy.h"
 #include "constants.h"
 #include <string>
-#include"sdlsystem.h"
+#include "sdlsystem.h"
 
 
 
 
-Enemy::Enemy(SDL_Renderer *renderer, const char imgSrc)
+Enemy::Enemy(SDL_Renderer *renderer, const char * imgSrc)
 {
 	SDL_Surface* tmpSurface = IMG_Load(imgSrc);
-	enemyIMG = SDL_CreateTextureFromSurface(renderer, tmpSurface);
+	enemyImg = SDL_CreateTextureFromSurface(renderer, tmpSurface);
 	SDL_FreeSurface(tmpSurface);
+	this->renderer = renderer;
+    SDL_RenderCopy(renderer, enemyImg, NULL, &position);
 }
 
 Enemy::~Enemy()
