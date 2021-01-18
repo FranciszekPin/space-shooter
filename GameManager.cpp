@@ -3,7 +3,6 @@
 //
 #include <stdio.h>
 #include "GameManager.h"
-#include "Enemy.h"
 #include "constants.h"
 
 
@@ -44,8 +43,6 @@ void GameManager::startGame() {
 
     SDL_Event e;
 
-    Enemy enemy = Enemy(renderer, "assets/monster2.bmp");
-
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
@@ -54,8 +51,6 @@ void GameManager::startGame() {
                 quit = true;
             }
         }
-
-        enemy.move();
 
         // adding all render objects should be done before this function
         SDL_RenderPresent(renderer);
