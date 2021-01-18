@@ -7,7 +7,7 @@
 
 
 
-Enemy::Enemy(SDL_Renderer* renderer, const char* imgSrc)
+Enemy::Enemy(SDL_Renderer *renderer, const char * imgSrc)
 {
 	SDL_Surface* tmpSurface = IMG_Load(imgSrc);
 	enemyImg = SDL_CreateTextureFromSurface(renderer, tmpSurface);
@@ -17,10 +17,7 @@ Enemy::Enemy(SDL_Renderer* renderer, const char* imgSrc)
 	if (!tmpSurface)
 		printf("Failed to create surface\n");
 	this->renderer = renderer;
-	position.x = 0;
-	position.y = 0;
-	position.h = 64;
-	position.w = 64;
+
 	SDL_RenderCopy(renderer, enemyImg, NULL, &position);
 }
 
@@ -32,14 +29,9 @@ Enemy::~Enemy()
 
 void Enemy::move()
 {
-	position.y += velocity;
-	if (position.x <= 0)
-		moveVector = false;
-	if (position.x >= SCREEN_WIDTH - 50)
-		moveVector = true;
-	if (moveVector == true)
-		position.x -= velocity;
-	else
-		position.x += velocity;
+    position.x = 0;
+    position.y = 0;
+    position.h = 100;
+    position.w = 100;
 	SDL_RenderCopy(renderer, enemyImg, NULL, &position);
 }
