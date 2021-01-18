@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "GameManager.h"
 #include "constants.h"
+#include "Spaceship.h"
 
 
 GameManager::GameManager() {
@@ -41,6 +42,9 @@ void GameManager::startGame() {
 
     SDL_Event e;
 
+    //Creating a spaceship
+    Spaceship spaceship;
+
     while (!quit) {
         SDL_SetRenderDrawColor (renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear (renderer);
@@ -48,7 +52,13 @@ void GameManager::startGame() {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
+
+            spaceship.handleEvent(e);
         }
+
+        spaceship.move();
+
+        spaceship.render();
 
         // adding all render objects should be done before this function
         SDL_RenderPresent(renderer);
