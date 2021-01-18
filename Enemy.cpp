@@ -7,12 +7,18 @@
 
 
 
-void Enemy::loadIMG(SDL_Renderer* renderer, const char* img_src)
+Enemy::Enemy(SDL_Renderer *renderer, const char imgSrc)
 {
-	SDL_Surface* tmpSurface = IMG_Load(img_src);
+	SDL_Surface* tmpSurface = IMG_Load(imgSrc);
 	enemyIMG = SDL_CreateTextureFromSurface(renderer, tmpSurface);
 	SDL_FreeSurface(tmpSurface);
 }
+
+Enemy::~Enemy()
+{
+	SDL_DestroyTexture(enemyImg);
+}
+
 
 void Enemy::move()
 {
@@ -25,5 +31,5 @@ void Enemy::move()
 		position.x -= 4 * velocity;
 	else
 		position.x += 4 * velocity;
-
+	SDL_RenderCopy(renderer, enemyIMG, NULL, &position);
 }
