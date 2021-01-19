@@ -1,9 +1,10 @@
 //
 // Created by pumassv1 on 28.12.2020.
 //
-#include <stdio.h>
 #include "GameManager.h"
 #include "constants.h"
+#include <cstdio>
+#include <ctime>
 
 
 GameManager::GameManager() {
@@ -39,6 +40,12 @@ bool GameManager::init() {
 
 void GameManager::startGame() {
 
+    double duration;
+    double lastTime = ( std::clock()) / (double) CLOCKS_PER_SEC;
+    double deltaTime = 0;
+    double timeSinceLastFrame = 0;
+
+
     bool quit = false;
 
     SDL_Event e;
@@ -67,9 +74,20 @@ void GameManager::startGame() {
                 }
             }
         }
+        duration = ( std::clock()) / (double) CLOCKS_PER_SEC;
+        deltaTime = duration - lastTime;
+        lastTime = duration;
+        timeSinceLastFrame += deltaTime;
 
-        // adding all render objects should be done before this function
-        SDL_RenderPresent(renderer);
+        if (timeSinceLastFrame > 1.0/SCREEN_FPS)
+        {
+            timeSinceLastFrame = 0;
+            // adding all render objects should be done before this function
+
+
+            SDL_RenderPresent(renderer);
+        }
+
     }
 }
 
