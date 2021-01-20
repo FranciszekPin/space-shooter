@@ -3,6 +3,7 @@
 //
 #include "constants.h"
 #include "Spaceship.h"
+#include <stdio.h>
 
 Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
     shipPosX = SCREEN_WIDTH/2;

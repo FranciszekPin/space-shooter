@@ -44,10 +44,14 @@ bool GameManager::init() {
             else {
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-                assetManager->AddTexture("proj", "assets/proj.png");
+                assetManager->AddTexture("proj", "assets/proj.png"); //adds projectile texture to asset manager
+                Projectile* tmp;
+                for (int i = 0;i < SCREEN_WIDTH;i+=50)
+                {
+                    tmp = new Projectile(i,0,1,i/50+1); //creates projectiles and adds them to vector
+                    projectiles.emplace_back(tmp);
+                }
 
-                Projectile* tmp = new Projectile(4, 5, 1, 5);
-                projectiles.emplace_back(tmp);
             }
         }
     }
@@ -103,7 +107,7 @@ void GameManager::startGame() {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
 
-            for (auto& p : projectiles)
+            for (auto& p : projectiles) //updates projectiles and draws them
             {
                 p->update();
                 p->render(assetManager->GetTexture("proj"));

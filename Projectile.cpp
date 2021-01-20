@@ -7,7 +7,7 @@
 Projectile::Projectile(int xpos, int ypos, int scale, int vel)
 {
 	sprite.x = xpos;
-	sprite.y = xpos;
+	sprite.y = ypos;
 	sprite.w = srcR.w * scale;
 	sprite.h = srcR.h * scale;
 	velocity = vel;
