@@ -12,6 +12,9 @@ private:
     //Current position and velocity of the spaceship
     int shipPosX, shipPosY;
     int shipVelX, shipVelY;
+    SDL_Rect position;
+    SDL_Texture *spaceshipImg;
+    SDL_Renderer *renderer;
 public:
     //Spaceship dimensions
     static const int SHIP_WIDTH = 50;
@@ -19,7 +22,7 @@ public:
     //Maximum axis velocity of the spaceship
     static const int SHIP_VELOCITY = 0;
 
-    Spaceship();
+    Spaceship(SDL_Renderer *renderer, const char *imgSrc);
 
     //Handles keys pressed
     void handleEvent(SDL_Event &e);
@@ -29,7 +32,8 @@ public:
     void shoot();
     //Shows the spaceship on the screen
     void render();
-
+    //Returns spaceship SDL_Rect
+    SDL_Rect getRect();
 };
 
 #endif //SPACE_SHOOTER_SPACESHIP_H

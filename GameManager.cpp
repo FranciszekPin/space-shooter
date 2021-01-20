@@ -3,6 +3,7 @@
 //
 #include "GameManager.h"
 #include "constants.h"
+#include "Spaceship.h"
 #include <cstdio>
 #include <ctime>
 
@@ -52,7 +53,7 @@ void GameManager::startGame() {
     SDL_Event e;
 
     //Creating a spaceship
-    Spaceship spaceship;
+    //Spaceship spaceship();
 
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -87,7 +88,6 @@ void GameManager::startGame() {
         {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
-
 
             SDL_RenderPresent(renderer);
         }
