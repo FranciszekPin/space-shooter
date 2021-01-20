@@ -5,7 +5,17 @@
 #include "constants.h"
 #include <cstdio>
 #include <ctime>
+#include <memory>
+#include <vector>
+#include "Projectile.h"
+#include "AssetManager.h"
+#include "Collision.h"
+#include "Enemy.h"
 
+AssetManager* assetManager= new AssetManager();
+SDL_Renderer* GameManager::renderer = nullptr;
+
+std::vector <std::unique_ptr <Projectile>> projectiles;
 
 GameManager::GameManager() {
     window = NULL;
@@ -32,6 +42,11 @@ bool GameManager::init() {
             }
             else {
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+                assetManager->AddTexture("proj", "assets/proj.png");
+
+                Projectile* tmp = new Projectile(4, 5, 1, 5);
+                projectiles.emplace_back(tmp);
             }
         }
     }
@@ -84,6 +99,11 @@ void GameManager::startGame() {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
 
+            for (auto& p : projectiles)
+            {
+                p->update();
+                p->render(assetManager->GetTexture("proj"));
+            }
 
             SDL_RenderPresent(renderer);
         }

@@ -10,9 +10,9 @@
 class GameManager {
 private:
     SDL_Window *window;
-    SDL_Renderer *renderer;
 
 public:
+    static SDL_Renderer* renderer;
     GameManager();
     bool init();
     void startGame();
