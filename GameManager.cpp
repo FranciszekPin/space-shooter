@@ -117,3 +117,8 @@ GameManager::~GameManager() {
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
+
+void GameManager::AddNewProjectileToVector(Projectile* tmp)
+{
+    projectiles.emplace_back(tmp);
+}

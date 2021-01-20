@@ -7,11 +7,14 @@
 
 #include "sdlsystem.h"
 
+class Projectile;
+
 class GameManager {
 private:
     SDL_Window *window;
 
 public:
+    static void AddNewProjectileToVector(Projectile* tmp);
     static SDL_Renderer* renderer;
     GameManager();
     bool init();

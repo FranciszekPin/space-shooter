@@ -4,6 +4,8 @@
 #include "constants.h"
 #include "Spaceship.h"
 #include <stdio.h>
+#include "Projectile.h"
+#include "GameManager.h"
 
 Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
     shipPosX = SCREEN_WIDTH/2 - SHIP_WIDTH/2;
@@ -68,7 +70,11 @@ void Spaceship::move() {
     }
 }
 
-void Spaceship::shoot() {}
+void Spaceship::shoot() 
+{
+    Projectile* tmp = new Projectile(position.x + (position.w / 2 - 16/*16 is 0,5 of projectile width*/), position.y, 1, -5);
+    GameManager::AddNewProjectileToVector(tmp);
+}
 
 void Spaceship::render() {
     position.x = shipPosX;
