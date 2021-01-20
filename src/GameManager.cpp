@@ -3,6 +3,7 @@
 //
 #include "GameManager.h"
 #include "constants.h"
+#include "Clock.h"
 #include <cstdio>
 #include <ctime>
 
@@ -49,6 +50,7 @@ void GameManager::startGame() {
     bool quit = false;
 
     SDL_Event e;
+    Clock zegar(renderer);
 
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -83,7 +85,7 @@ void GameManager::startGame() {
         {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
-
+            zegar.render();
 
             SDL_RenderPresent(renderer);
         }

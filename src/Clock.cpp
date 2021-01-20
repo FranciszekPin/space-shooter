@@ -4,12 +4,8 @@
 #include "constants.h"
 #include "Clock.h"
 #include <vector>
-Clock::Clock(float x, float y, float h, float w,SDL_Renderer *renderer)
+Clock::Clock(SDL_Renderer *renderer)
 {
- currentTime.x = x;
- currentTime.y = y;
- currentTime.h = h;
- currentTime.w = w;
  src.x = 0;
  src.y = 0;
  src.h = 12;
@@ -19,18 +15,20 @@ Clock::Clock(float x, float y, float h, float w,SDL_Renderer *renderer)
  dst.y = 0;
  dst.h = 12*6;
  dst.w = 22*6;
+ TheRenderer = renderer;
+ TheClock = IMG_LoadTexture(renderer,"assets/clock.png");
 
- std::vector<SDL_Texture*> textures = {
-                    IMG_LoadTexture(renderer,"res/0.png"),
-                    IMG_LoadTexture(renderer,"res/1.png"),
-                    IMG_LoadTexture(renderer,"res/2.png"),
-                    IMG_LoadTexture(renderer,"res/3.png"),
-                    IMG_LoadTexture(renderer,"res/4.png"),
-                    IMG_LoadTexture(renderer,"res/5.png"),
-                    IMG_LoadTexture(renderer,"res/6.png"),
-                    IMG_LoadTexture(renderer,"res/7.png"),
-                    IMG_LoadTexture(renderer,"res/8.png"),
-                    IMG_LoadTexture(renderer,"res/9.png")};
+ textures = {
+                    IMG_LoadTexture(renderer,"assets/0.png"),
+                    IMG_LoadTexture(renderer,"assets/1.png"),
+                    IMG_LoadTexture(renderer,"assets/2.png"),
+                    IMG_LoadTexture(renderer,"assets/3.png"),
+                    IMG_LoadTexture(renderer,"assets/4.png"),
+                    IMG_LoadTexture(renderer,"assets/5.png"),
+                    IMG_LoadTexture(renderer,"assets/6.png"),
+                    IMG_LoadTexture(renderer,"assets/7.png"),
+                    IMG_LoadTexture(renderer,"assets/8.png"),
+                    IMG_LoadTexture(renderer,"assets/9.png")};
 
 
 }
@@ -46,14 +44,7 @@ SDL_Rect Clock::getTime()
 	time.h = ((sek/60)/10)%10;
 		return time;
 }
-SDL_Rect Clock::getSRC()
-{
-	return src;
-}
-SDL_Rect Clock::getDST()
-{
-	return dst;
-}
+
 SDL_Rect Clock::getDigitParams(int a)
 {
 	DigitParameters.y = 30;
@@ -75,4 +66,9 @@ SDL_Rect Clock::getDigitParams(int a)
 			break;
 	}
 	return DigitParameters;
+}
+void Clock::render()
+{
+		SDL_RenderCopy(TheRenderer, TheClock, &src,&dst);
+		 SDL_RenderPresent(TheRenderer);
 }
