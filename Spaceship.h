@@ -11,16 +11,16 @@ class Spaceship {
 private:
     //Current position and velocity of the spaceship
     int shipPosX, shipPosY;
-    int shipVelX, shipVelY;
+    int shipVelX=0, shipVelY=0;
     SDL_Rect position;
     SDL_Texture *spaceshipImg;
     SDL_Renderer *renderer;
 public:
     //Spaceship dimensions
-    static const int SHIP_WIDTH = 50;
-    static const int SHIP_HEIGHT = 50;
+    static const int SHIP_WIDTH = 64;
+    static const int SHIP_HEIGHT = 64;
     //Maximum axis velocity of the spaceship
-    static const int SHIP_VELOCITY = 0;
+    static const int SHIP_VELOCITY = 6;
 
     Spaceship(SDL_Renderer *renderer, const char *imgSrc);
 
