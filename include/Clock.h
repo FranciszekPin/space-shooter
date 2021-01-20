@@ -9,13 +9,14 @@ class Clock
 	public:
 		Clock(SDL_Renderer *renderer);
 		SDL_Rect getTime();
-		SDL_Rect getDigitParams(int a);
+		void getDigitParams(int a);
 		void render();
 	private:
 		SDL_Rect src;
 		SDL_Rect dst;
 		SDL_Renderer *TheRenderer;
-		SDL_Rect DigitParameters;
+		SDL_Rect digitSRC;
+		SDL_Rect digitDST;
 		SDL_Texture* TheClock;
 		std::vector<SDL_Texture*> textures;
 

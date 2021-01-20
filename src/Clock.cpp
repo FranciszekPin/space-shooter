@@ -15,6 +15,10 @@ Clock::Clock(SDL_Renderer *renderer)
  dst.y = 0;
  dst.h = 12*6;
  dst.w = 22*6;
+
+ digitSRC = src;
+ digitSRC.h = 5;
+ digitSRC.w = 3;
  TheRenderer = renderer;
  TheClock = IMG_LoadTexture(renderer,"assets/clock.png");
 
@@ -45,30 +49,38 @@ SDL_Rect Clock::getTime()
 		return time;
 }
 
-SDL_Rect Clock::getDigitParams(int a)
+void Clock::getDigitParams(int a)
 {
-	DigitParameters.y = 30;
-	DigitParameters.w = 3*6;
-	DigitParameters.h = 5*6;
+	digitDST.y = 30;
+	digitDST.w = 3*6;
+	digitDST.h = 5*6;
 	switch(a)
 	{
 		case 1:
-		DigitParameters.x = SCREEN_WIDTH - 30;
+		digitDST.x = SCREEN_WIDTH - 30;
 			break;
 		case 2:
-		DigitParameters.x = SCREEN_WIDTH - 54;
+		digitDST.x = SCREEN_WIDTH - 54;
 			break;
 		case 3:
-		DigitParameters.x = SCREEN_WIDTH - 90;
+		digitDST.x = SCREEN_WIDTH - 90;
 			break;
 		case 4:
-		DigitParameters.x = SCREEN_WIDTH - 114;
+		digitDST.x = SCREEN_WIDTH - 114;
 			break;
 	}
-	return DigitParameters;
 }
 void Clock::render()
 {
 		SDL_RenderCopy(TheRenderer, TheClock, &src,&dst);
-		 SDL_RenderPresent(TheRenderer);
+					getDigitParams(1);
+		SDL_RenderCopy(TheRenderer, textures[getTime().x],&digitSRC,&digitDST);
+		 			getDigitParams(2);
+        SDL_RenderCopy(TheRenderer, textures[getTime().y],&digitSRC,&digitDST);
+          			getDigitParams(3);
+        SDL_RenderCopy(TheRenderer, textures[getTime().w],&digitSRC,&digitDST);
+         			getDigitParams(4);
+        SDL_RenderCopy(TheRenderer, textures[getTime().h],&digitSRC,&digitDST);
+		
+		SDL_RenderPresent(TheRenderer);
 }
