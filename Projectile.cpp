@@ -6,6 +6,7 @@
 
 Projectile::Projectile(int xpos, int ypos, int scale, int vel)
 {
+	active = true;
 	sprite.x = xpos;
 	sprite.y = ypos;
 	sprite.w = srcR.w * scale;
@@ -15,7 +16,6 @@ Projectile::Projectile(int xpos, int ypos, int scale, int vel)
 
 Projectile::~Projectile()
 {}
-
 
 void Projectile::update()
 {

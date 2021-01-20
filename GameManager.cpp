@@ -12,11 +12,14 @@
 #include "AssetManager.h"
 #include "Collision.h"
 #include "Enemy.h"
+#include "Collision.h"
+#include <iostream>
 
 AssetManager* assetManager= new AssetManager();
 SDL_Renderer* GameManager::renderer = nullptr;
 
-std::vector <std::unique_ptr <Projectile>> projectiles;
+std::vector <std::unique_ptr <Projectile>> friendlyProjectiles;
+std::vector <std::unique_ptr <Projectile>> enemyProjectiles;
 
 GameManager::GameManager() {
     window = NULL;
@@ -49,7 +52,7 @@ bool GameManager::init() {
                 for (int i = 0;i < SCREEN_WIDTH;i+=50)
                 {
                     tmp = new Projectile(i,0,1,i/50+1); //creates projectiles and adds them to vector
-                    projectiles.emplace_back(tmp);
+                    enemyProjectiles.emplace_back(tmp);
                 }
 
             }
@@ -100,9 +103,28 @@ void GameManager::startGame() {
 
             spaceship.move();
             spaceship.render();
+            RefreshProjectiles();
 
-            for (auto& p : projectiles) //updates projectiles and draws them
+            for (auto& p : enemyProjectiles) //updates enemy projectiles, draws them and checks if they collide with the spaceship
             {
+                if (Collision::AABB(spaceship.getRect(), p->GetRectangle())) //checks if two rectangles (player's and enemy's) collide
+                {
+                    
+                    std::cout << duration << " Player hit!\n";
+                    p->destroy();
+                }
+
+                p->update();
+                p->render(assetManager->GetTexture("proj"));
+            }
+            
+            for (auto& p : friendlyProjectiles) //updates friendly projectiles, draws them and checks if they collide with enemies
+            {
+                /*for (auto& e : enemies)
+                {
+                    //if collision then ...
+                }*/
+
                 p->update();
                 p->render(assetManager->GetTexture("proj"));
             }
@@ -118,7 +140,27 @@ GameManager::~GameManager() {
     SDL_Quit();
 }
 
-void GameManager::AddNewProjectileToVector(Projectile* tmp)
+void GameManager::AddNewProjectileToVector(Projectile* tmp, bool ifEnemy)
 {
-    projectiles.emplace_back(tmp);
+    if (ifEnemy)
+        enemyProjectiles.emplace_back(tmp);
+    else
+        friendlyProjectiles.emplace_back(tmp);
+}
+
+void GameManager::RefreshProjectiles()
+{
+    enemyProjectiles.erase(std::remove_if(std::begin(enemyProjectiles), std::end(enemyProjectiles),
+        [](const std::unique_ptr<Projectile>& proj)  //Lambda expr
+        {
+            return !proj->isActive();
+        }),
+        std::end(enemyProjectiles));
+
+    friendlyProjectiles.erase(std::remove_if(std::begin(friendlyProjectiles), std::end(friendlyProjectiles),
+        [](const std::unique_ptr<Projectile>& proj)  //Lambda expr
+        {
+            return !proj->isActive();
+        }),
+        std::end(friendlyProjectiles));
 }

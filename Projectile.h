@@ -11,8 +11,13 @@ public:
 	~Projectile();
 	void update();
 	void render(SDL_Texture* texture);
+	SDL_Rect GetRectangle() { return sprite; }
+	bool isActive() { return active; }
+	void refresh();
+	void destroy() { active = false; }
 
 private:
+	bool active;
 	SDL_Rect srcR = { 0,0,32,32 };
 	SDL_Rect sprite;
 	int  velocity = 1;//-1 gora
