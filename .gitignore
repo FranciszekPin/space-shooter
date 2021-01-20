@@ -4,6 +4,9 @@
 # except those
 !README.md
 !.gitignore
-!/assets
+!/bin
+!/include
+!/src
+!*.png
 !*.h
 !*.cpp
