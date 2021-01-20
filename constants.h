@@ -10,6 +10,6 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
 // FPS
-const double SCREEN_FPS = 20;
+const double SCREEN_FPS = 60;
 
 #endif //SPACE_SHOOTER_CONSTANTS_H
