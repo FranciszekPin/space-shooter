@@ -19,34 +19,97 @@ EnemyManager::EnemyManager(SDL_Renderer* r)
 }
 
 
-Enemy EnemyManager::createMonster(const char* imgSrc, int i)
+Enemy* EnemyManager::createMonster(const char* imgSrc, int x, int y, int creatureType, int xspeed, int yspeed)
 {
-	Enemy enem(renderer, imgSrc, i * 64, 0, 0);
+	Enemy* enem = new Enemy(renderer, imgSrc, x, y, creatureType, xspeed, yspeed);
 	return enem;
 }
 
 void EnemyManager::createMultripleMonsters()
 {
 	srand(time(NULL));
-	int randomMonster = rand() % 2;
-	for (int i = 0; i < 13; i++)
+	int randomMonster = rand() % 4;
+	Enemy* enemyTmp;
+	switch (randomMonster)
 	{
-		if (randomMonster == 0)
+	case 0:
+		for (int i = 0; i < 6; i++)
 		{
-			Enemies.push_back(createMonster("assets/blue1.bmp", i));
+			enemyTmp = createMonster("assets/yellow1.bmp", i * 80, -50, randomMonster, 3, 2);
+			yellowEnemies.emplace_back(enemyTmp);
 		}
-		else
+		break;
+	case 1:
+		for (int i = 0; i < 5; i++)
 		{
-			Enemies.push_back(createMonster("assets/yellow1.bmp", i));
+			enemyTmp = createMonster("assets/red1.bmp", i * 120, -50, randomMonster, 3, 1);
+			redEnemies.emplace_back(enemyTmp);
 		}
+		break;
+	case 2:
+		for (int i = 1; i < 6; i++)
+		{
+			enemyTmp = createMonster("assets/green1.bmp", i * 100, -50, randomMonster, 3, 1);
+			redEnemies.emplace_back(enemyTmp);
+		}
+		break;
+	case 3:
+		for (int i = 0; i < 5; i++)
+		{
+			enemyTmp = createMonster("assets/blue1.bmp", i * 200, i * 50 - 200, randomMonster, 3, 3);
+			redEnemies.emplace_back(enemyTmp);
+		}
+		break;
 	}
 }
 
 void EnemyManager::moveAll()
 {
-	for (auto& it : Enemies)
+	if (yellowEnemies.size() > 0) {
+		bool changeDirection = false;
+		bool direction = true;
+		if (yellowEnemies[yellowEnemies.size() - 1]->position.x >= SCREEN_WIDTH - 50) {
+			yellowEnemies[yellowEnemies.size() - 1]->moveVector = true;
+			changeDirection = true;
+			direction = true;
+		}
+		if (yellowEnemies[0]->position.x <= 0)
+		{
+			yellowEnemies[0]->moveVector = false;
+			changeDirection = true;
+			direction = false;
+		}
+
+		for (int i = 0; i < yellowEnemies.size(); i++)
+		{
+			if (changeDirection) {
+				if (!direction)
+					yellowEnemies[i]->moveVector = yellowEnemies[0]->moveVector;
+				else
+					yellowEnemies[i]->moveVector = yellowEnemies[yellowEnemies.size() - 1]->moveVector;
+			}
+			yellowEnemies[i]->move();
+		}
+	}
+	if (redEnemies.size() > 0)
 	{
-		it.move();
-		SDL_RenderCopy(renderer, it.enemyImg, NULL, &it.position);
+		for (int i = 0; i < redEnemies.size(); i++)
+		{
+			redEnemies[i]->move();
+		}
+	}
+	if (greenEnemies.size() > 0)
+	{
+		for (int i = 0; i < greenEnemies.size(); i++)
+		{
+			greenEnemies[i]->move();
+		}
+	}
+	if (blueEnemies.size() > 0)
+	{
+		for (int i = 0; i < blueEnemies.size(); i++)
+		{
+			blueEnemies[i]->move();
+		}
 	}
 }
