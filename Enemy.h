@@ -1,5 +1,4 @@
 
-
 #ifndef SPACE_SHOOTER_ENEMY_H
 #define SPACE_SHOOTER_ENEMY_H
 #include "sdlsystem.h"
@@ -8,13 +7,19 @@ class Enemy
 {
 private:
 	bool moveVector = true;
-	SDL_Rect position;
-	SDL_Texture* enemyImg;
+	int moveY = 0;
+
+
+	SDL_Renderer* renderer;
+	int creatureType;
 public:
-	Enemy(SDL_Renderer* renderer, const char imgSrc);
+	SDL_Texture* enemyImg;
+	SDL_Rect position;
+	Enemy(SDL_Renderer* renderer, const char* imgSrc, int x, int y, int creatureType);
 	void move();
 	~Enemy();
-	int  velocity = 1;
+	int  velocityX = 3;
+	int	velocityY = 1;
 };
 
-#endif //SPACE_S
+#endif //SPACE_SE_S
