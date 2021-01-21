@@ -5,7 +5,7 @@
 #ifndef SPACE_SHOOTER_SPACESHIP_H
 #define SPACE_SHOOTER_SPACESHIP_H
 
-#include "sdlsystem.h"
+#include "sdlsystem.h" 
 
 class Spaceship {
 private:
@@ -15,6 +15,7 @@ private:
     SDL_Rect position;
     SDL_Texture *spaceshipImg;
     SDL_Renderer *renderer;
+
 public:
     //Spaceship dimensions
     static const int SHIP_WIDTH = 64;

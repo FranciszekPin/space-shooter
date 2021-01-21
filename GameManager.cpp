@@ -6,20 +6,10 @@
 #include "Spaceship.h"
 #include <cstdio>
 #include <ctime>
-#include <memory>
-#include <vector>
-#include "Projectile.h"
-#include "AssetManager.h"
-#include "Collision.h"
 #include "Enemy.h"
-#include "Collision.h"
-#include <iostream>
+#include"CollisionManager.h"
 
-AssetManager* assetManager= new AssetManager();
 SDL_Renderer* GameManager::renderer = nullptr;
-
-std::vector <std::unique_ptr <Projectile>> friendlyProjectiles;
-std::vector <std::unique_ptr <Projectile>> enemyProjectiles;
 
 GameManager::GameManager() {
     window = NULL;
@@ -47,14 +37,7 @@ bool GameManager::init() {
             else {
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-                assetManager->AddTexture("proj", "assets/proj.png"); //adds projectile texture to asset manager
-                Projectile* tmp;
-                for (int i = 0;i < SCREEN_WIDTH;i+=50)
-                {
-                    tmp = new Projectile(i,0,1,i/50+1); //creates projectiles and adds them to vector
-                    enemyProjectiles.emplace_back(tmp);
-                }
-
+                CollisionManager::init();
             }
         }
     }
@@ -103,31 +86,10 @@ void GameManager::startGame() {
 
             spaceship.move();
             spaceship.render();
-            RefreshProjectiles();
-
-            for (auto& p : enemyProjectiles) //updates enemy projectiles, draws them and checks if they collide with the spaceship
-            {
-                if (Collision::AABB(spaceship.getRect(), p->GetRectangle())) //checks if two rectangles (player's and enemy's) collide
-                {
-                    
-                    std::cout << duration << " Player hit!\n";
-                    p->destroy();
-                }
-
-                p->update();
-                p->render(assetManager->GetTexture("proj"));
-            }
             
-            for (auto& p : friendlyProjectiles) //updates friendly projectiles, draws them and checks if they collide with enemies
-            {
-                /*for (auto& e : enemies)
-                {
-                    //if collision then ...
-                }*/
-
-                p->update();
-                p->render(assetManager->GetTexture("proj"));
-            }
+            CollisionManager::refresh();
+            CollisionManager::update(spaceship);
+            CollisionManager::render();
 
             SDL_RenderPresent(renderer);
         }
@@ -138,29 +100,4 @@ void GameManager::startGame() {
 GameManager::~GameManager() {
     SDL_DestroyWindow(window);
     SDL_Quit();
-}
-
-void GameManager::AddNewProjectileToVector(Projectile* tmp, bool ifEnemy)
-{
-    if (ifEnemy)
-        enemyProjectiles.emplace_back(tmp);
-    else
-        friendlyProjectiles.emplace_back(tmp);
-}
-
-void GameManager::RefreshProjectiles()
-{
-    enemyProjectiles.erase(std::remove_if(std::begin(enemyProjectiles), std::end(enemyProjectiles),
-        [](const std::unique_ptr<Projectile>& proj)  //Lambda expr
-        {
-            return !proj->isActive();
-        }),
-        std::end(enemyProjectiles));
-
-    friendlyProjectiles.erase(std::remove_if(std::begin(friendlyProjectiles), std::end(friendlyProjectiles),
-        [](const std::unique_ptr<Projectile>& proj)  //Lambda expr
-        {
-            return !proj->isActive();
-        }),
-        std::end(friendlyProjectiles));
 }
