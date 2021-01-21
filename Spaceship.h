@@ -18,8 +18,8 @@ private:
 
 public:
     //Spaceship dimensions
-    static const int SHIP_WIDTH = 64;
-    static const int SHIP_HEIGHT = 64;
+    static const int SHIP_WIDTH = 84;
+    static const int SHIP_HEIGHT = 60;
     //Maximum axis velocity of the spaceship
     static const int SHIP_VELOCITY = 6;
 

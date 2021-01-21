@@ -11,7 +11,8 @@ std::vector<std::unique_ptr<Projectile>> enemyProjectiles;
 
 void CollisionManager::init()
 {
-    assetManager->AddTexture("proj", "assets/proj.png"); //adds projectile texture to asset manager
+    assetManager->AddTexture("Bullet", "assets/bullet.png"); //adds projectile texture to asset manager
+    assetManager->AddTexture("enemyBullet", "assets/fallingbullet.png");
     Projectile* tmp;
     for (int i = 0;i < SCREEN_WIDTH;i += 50)
     {
@@ -88,11 +89,11 @@ void CollisionManager::render()
     for (auto& p : friendlyProjectiles) //updates friendly projectiles, draws them and checks if they collide with enemies
     {
         
-        p->render(assetManager->GetTexture("proj"));
+        p->render(assetManager->GetTexture("Bullet"));
     }
 
     for (auto& p : enemyProjectiles) //updates enemy projectiles, draws them and checks if they collide with the spaceship
     {
-        p->render(assetManager->GetTexture("proj"));
+        p->render(assetManager->GetTexture("enemyBullet"));
     }
 }
