@@ -6,7 +6,10 @@
 #include "Clock.h"
 #include <cstdio>
 #include <ctime>
+#include "Enemy.h"
+#include"CollisionManager.h"
 
+SDL_Renderer* GameManager::renderer = nullptr;
 
 GameManager::GameManager() {
     window = NULL;
@@ -33,6 +36,8 @@ bool GameManager::init() {
             }
             else {
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+                CollisionManager::init();
             }
         }
     }
@@ -52,28 +57,22 @@ void GameManager::startGame() {
     SDL_Event e;
     Clock zegar(renderer);
 
+    //Creating a spaceship
+    Spaceship spaceship(GameManager::renderer, "xd");
+
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) {
+
+        while (SDL_PollEvent(&e) != 0)
+        {
+            if (e.type == SDL_QUIT)
+            {
                 quit = true;
             }
-            if (e.type == SDL_KEYDOWN) {
-                switch (e.key.keysym.sym) {
-                    case SDLK_SPACE:
-
-                        // spaceship opens fire
-                        break;
-                    case SDLK_LEFT:
-
-                        // move spaceship left
-                        break;
-                    case SDLK_RIGHT:
-
-                        // move spaceship right
-                        break;
-                }
+            else
+            {
+                spaceship.handleEvent(e);
             }
         }
         duration = ( std::clock()) / (double) CLOCKS_PER_SEC;
@@ -86,6 +85,13 @@ void GameManager::startGame() {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
             zegar.render();
+
+            spaceship.move();
+            spaceship.render();
+            
+            CollisionManager::refresh();
+            CollisionManager::update(spaceship);
+            CollisionManager::render();
 
             SDL_RenderPresent(renderer);
         }
