@@ -8,9 +8,7 @@
 #include "math.h"
 
 
-
-
-Enemy::Enemy(SDL_Renderer* renderer, const char* imgSrc)
+Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, int xspeed, int yspeed, bool V)
 {
 	moveVector = V;
 	this->renderer = r;
