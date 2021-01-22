@@ -12,13 +12,14 @@ private:
 
 	SDL_Renderer* renderer;
 public:
-	Enemy* createMonster(const char* imgSrc, int x, int y, int creatureType, int xspeed, int yspeed);
+	Enemy* createMonster(const char* imgSrc, int x, int y, int creatureType, int xspeed, int yspeed, bool moveVector);
 	EnemyManager(SDL_Renderer* r);
 	vector<unique_ptr<Enemy> > redEnemies;
 	vector<unique_ptr<Enemy> > blueEnemies;
 	vector<unique_ptr<Enemy> > greenEnemies;
 	vector<unique_ptr<Enemy> > yellowEnemies;
 	void moveAll();
+	void randomShots();
 	void createMultripleMonsters();
 };
 

@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include "Enemy.h"
 #include "constants.h"
@@ -7,8 +8,9 @@
 #include "math.h"
 
 
-Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, int xspeed, int yspeed)
+Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, int xspeed, int yspeed, bool V)
 {
+	moveVector = V;
 	this->renderer = r;
 	creatureType = creature;
 	SDL_Surface* tmpSurface = IMG_Load(imgSrc);
@@ -87,7 +89,10 @@ void Enemy::move()
 		break;
 	case 2:
 
-		angle += 0.05;
+		if (moveVector)
+			angle -= 0.05;
+		else
+			angle += 0.05;
 		if (moveY == 3)
 		{
 			orbitY += velocityY;
@@ -128,6 +133,11 @@ void Enemy::deactive()
 	active = false;
 }
 
+
+void Enemy::shoot()
+{
+
+}
 Enemy::~Enemy()
 {
 	SDL_DestroyTexture(enemyImg);
