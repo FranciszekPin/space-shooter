@@ -20,7 +20,8 @@ public:
 	vector<unique_ptr<Enemy> > yellowEnemies;
 	void moveAll();
 	void randomShots();
-	void createMultripleMonsters();
+	void spawnMonsters();
+	void destroyInactive();
 };
 
 #endif //SPACE_S

@@ -25,9 +25,10 @@ Enemy* EnemyManager::createMonster(const char* imgSrc, int x, int y, int creatur
 	return enem;
 }
 
-void EnemyManager::createMultripleMonsters()
+void EnemyManager::spawnMonsters()
 {
-	srand(time(NULL));
+	if (!redEnemies.size() && !greenEnemies.size() && !redEnemies.size() && !blueEnemies.size())
+		srand(time(NULL));
 	int randomMonster = 2;
 	bool greenVector = rand() % 2;
 	Enemy* enemyTmp;
@@ -65,6 +66,7 @@ void EnemyManager::createMultripleMonsters()
 			redEnemies.emplace_back(enemyTmp);
 		}
 		break;
+	}
 	}
 }
 
@@ -157,8 +159,42 @@ void EnemyManager::randomShots()
 			if (rand() % 2)
 				greenEnemies[i]->shoot();
 		}
+
+}
+
+void EnemyManager::destroyInactive()
+
+{
+	if (yellowEnemies.size() > 0)
+	{
+		int random = 0;
+		for (int i = 0; i < yellowEnemies.size(); i++) {
+			if (!yellowEnemies[i]->active)
+				yellowEnemies.erase(i);
+		}
 	}
-
-
+	if (blueEnemies.size() > 0)
+	{
+		for (int i = 0; i < blueEnemies.size(); i++)
+		{
+			if (!blueEnemies[i]->active)
+				blueEnemies.erase(i);
+		}
+	}
+	if (redEnemies.size() > 0)
+	{
+		for (int i = 0; i < greenEnemies.size(); i++)
+		{
+			if (!greenEnemies[i]->active)
+				greenEnemies.erase(i);
+		}
+	}
+	if (greenEnemies.size() > 0)
+	{
+		for (int i = 0; i < redEnemies.size(); i++)
+		{
+			if (!redEnemies[i]->active)
+				redEnemies.erase(i);
+		}
 
 }
