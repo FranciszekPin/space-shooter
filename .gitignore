@@ -11,3 +11,7 @@
 !*.png
 !*.h
 !*.cpp
+!*.mp3
+!*.wav
+!/sounds
+
