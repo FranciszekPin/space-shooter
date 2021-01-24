@@ -91,8 +91,8 @@ void GameManager::startGame() {
             CollisionManager::refresh();
             enemyManager.destroyInactive();
             secs = zegar.getTime().x + zegar.getTime().y * 10;
-            if (secs % 15)
-                enemyManager.shootDelay2 - 3;
+            if (secs % 15 && enemyManager.shootDelay2 > 20)
+                enemyManager.shootDelay2 - 2;
             enemyManager.spawnMonsters();
             spaceship.move();
             enemyManager.randomShots();
