@@ -9,6 +9,7 @@ public:
 	void playShot();
 	void playAlienShot();
 	void playExplosion();
+	void playBackground();
 private:
 	Mix_Music *background;
 	Mix_Chunk *alienshot;

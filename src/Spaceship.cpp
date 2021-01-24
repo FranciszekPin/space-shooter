@@ -23,6 +23,7 @@ Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
         printf("Failed to create surface %s\n", SDL_GetError());
 
     this->renderer = renderer;
+    jukebox2->init();
 }
 
 void Spaceship::handleEvent(SDL_Event &e) {

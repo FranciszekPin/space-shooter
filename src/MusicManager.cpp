@@ -9,7 +9,6 @@ void MusicManager::init()
     alienshot = Mix_LoadWAV("sounds/sound1.wav");
     explosion = Mix_LoadWAV("sounds/sound2.wav");
     smallshot = Mix_LoadWAV("sounds/sound3.wav");
-    Mix_PlayMusic(background, -1);
     //  Mix_FreeChunk(explosion);
     //  Mix_FreeMusic(background);
 }
@@ -31,9 +30,13 @@ void MusicManager::playShot()
 }
 void MusicManager::playExplosion()
 {
-	if(Mix_PlayChannel(-1, explosion,0) == -1)
-        {
-            printf("Mix_PlayChannel explosion: %s\n",Mix_GetError());
+	if(Mix_PlayChannel(-1, explosion, 0) == -1)
+       {
+           printf("Mix_PlayChannel explosion: %s\n",Mix_GetError());
  
         }
+}
+void MusicManager::playBackground()
+{
+   Mix_PlayMusic(background, -1);
 }

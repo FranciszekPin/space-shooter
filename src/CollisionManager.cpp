@@ -25,6 +25,7 @@ void CollisionManager::init()
     tmp = new Projectile(-60, 50, 1, 0); //same as above but for friendlyProjectiles
     friendlyProjectiles.emplace_back(tmp);
     jukebox->init();
+    jukebox->playBackground();
 
     /*for (int i = 0;i < SCREEN_WIDTH;i += 50)
     {
