@@ -8,7 +8,6 @@
 #include <ctime>
 #include "EnemyManager.h"
 #include"CollisionManager.h"
-
 SDL_Renderer* GameManager::renderer = nullptr;
 
 GameManager::GameManager() {
@@ -35,6 +34,11 @@ bool GameManager::init() {
                 success = false;
             }
             else {
+                if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2 ,2048)<0)
+                {
+                    printf("MIXER could not be created! SDL Error: %s\n", Mix_GetError());
+                success = false;
+                }
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
                 CollisionManager::init();
@@ -60,8 +64,6 @@ void GameManager::startGame() {
     //Creating a spaceship
     EnemyManager enemyManager(renderer);
     Spaceship spaceship(renderer, "xd");
-
-
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
@@ -110,5 +112,6 @@ void GameManager::startGame() {
 
 GameManager::~GameManager() {
     SDL_DestroyWindow(window);
+    Mix_Quit();
     SDL_Quit();
 }

@@ -4,8 +4,9 @@
 #include "constants.h"
 #include <iostream>
 #include <algorithm>
-
+#include "MusicManager.h"
 AssetManager* assetManager = new AssetManager();
+MusicManager* jukebox = new MusicManager();
 //add sound mixer object here
 
 std::vector<std::unique_ptr<Projectile>> friendlyProjectiles;
@@ -23,6 +24,7 @@ void CollisionManager::init()
     enemyProjectiles.emplace_back(tmp);
     tmp = new Projectile(-60, 50, 1, 0); //same as above but for friendlyProjectiles
     friendlyProjectiles.emplace_back(tmp);
+    jukebox->init();
 
     /*for (int i = 0;i < SCREEN_WIDTH;i += 50)
     {
@@ -75,6 +77,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
             if (Collision::AABB(e->GetRectangle(), tmp))
             {
                 //play collision (bullet x enemy) sound here
+                jukebox->playExplosion();
                 e->deactive();
                 p->destroy();
                 cout << "Blue enemy hit!\n";
@@ -91,6 +94,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
             if (Collision::AABB(e->GetRectangle(), tmp))
             {
                 //play collision (bullet x enemy) sound here
+                 jukebox->playExplosion();
                 e->deactive();
                 p->destroy();
                 cout << "Yellow enemy hit!\n";
@@ -107,6 +111,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
             if (Collision::AABB(e->GetRectangle(), tmp))
             {
                 //play collision (bullet x enemy) sound here
+               jukebox->playExplosion();
                 e->deactive();
                 p->destroy();
                 cout << "Green enemy hit!\n";
@@ -123,6 +128,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
             if (Collision::AABB(e->GetRectangle(), tmp))
             {
                 //play collision (bullet x enemy) sound here
+                jukebox->playExplosion();;
                 e->deactive();
                 p->destroy();
                 cout << "Red enemy hit!\n";
@@ -149,6 +155,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
         if (Collision::AABB(spaceship.getRect(), p->GetRectangle())) //checks if two rectangles (player's and enemy's) collide
         {
             //play collision (enemy bullet x spaceship) sound here
+            jukebox->playExplosion();
             std::cout << "Player hit!\n";
             p->destroy();
         }

@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include "Projectile.h"
 #include "CollisionManager.h"
-
+#include "MusicManager.h"
+MusicManager* jukebox2 = new MusicManager();
 Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
     shipPosX = SCREEN_WIDTH/2 - SHIP_WIDTH/2;
     shipPosY = SCREEN_HEIGHT-SHIP_HEIGHT*2;
@@ -27,6 +28,7 @@ Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
 void Spaceship::handleEvent(SDL_Event &e) {
     if(e.type == SDL_KEYDOWN) {
         switch( e.key.keysym.sym ) {
+    
             case SDLK_w: shipVelY = -1; break;
             case SDLK_s: shipVelY = 1; break;
             case SDLK_a: shipVelX = -1; break;
@@ -72,6 +74,7 @@ void Spaceship::move() {
 
 void Spaceship::shoot() 
 {
+    jukebox2->playShot();
     Projectile* tmp = new Projectile(position.x + (position.w / 2 - 19/*adjust this if needed*/), position.y + 20, 1, -6);
     CollisionManager::add(tmp, 0);
     tmp = new Projectile(position.x + (position.w / 2 + 13/*adjust this if needed*/), position.y + 20, 1, -6);
