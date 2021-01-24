@@ -12,6 +12,7 @@ private:
 	int shootDelay = 0;
 	SDL_Renderer* renderer;
 public:
+	int monstersSpeed = 0;
 	int shootDelay2 = 50;
 	Enemy* createMonster(std::string texID, int x, int y, int creatureType, int xspeed, int yspeed, bool moveVector);
 	EnemyManager(SDL_Renderer* r);
