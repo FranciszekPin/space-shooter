@@ -11,6 +11,7 @@ public:
 	~AssetManager();
 
 	void AddTexture(std::string id, const char* path);
+	void render(std::string id);
 	SDL_Texture* GetTexture(std::string id);
 
 private:

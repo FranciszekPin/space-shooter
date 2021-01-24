@@ -93,9 +93,10 @@ void GameManager::startGame() {
             enemyManager.destroyInactive();
 
             spaceship.move();
-            enemyManager.moveAll();
             enemyManager.randomShots();
+
             CollisionManager::render();
+            enemyManager.moveAll();
             spaceship.render();
 
             SDL_RenderPresent(renderer);

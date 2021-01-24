@@ -25,7 +25,7 @@ void EnemyManager::spawnMonsters()
 {
 	if (!redEnemies.size() && !greenEnemies.size() && !redEnemies.size() && !blueEnemies.size())
 		srand(time(NULL));
-	int randomMonster = 2;
+		int randomMonster = rand() % 4;
 	bool greenVector = rand() % 2;
 	Enemy* enemyTmp;
 	switch (randomMonster)
