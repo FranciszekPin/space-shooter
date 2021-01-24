@@ -81,6 +81,4 @@ void Clock::render()
         SDL_RenderCopy(TheRenderer, textures[getTime().w],&digitSRC,&digitDST);
          			getDigitParams(4);
         SDL_RenderCopy(TheRenderer, textures[getTime().h],&digitSRC,&digitDST);
-		
-		SDL_RenderPresent(TheRenderer);
 }

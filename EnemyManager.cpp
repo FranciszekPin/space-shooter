@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include "EnemyManager.h"
 
@@ -23,47 +22,47 @@ Enemy* EnemyManager::createMonster(const char* imgSrc, int x, int y, int creatur
 
 void EnemyManager::spawnMonsters()
 {
-	if (!redEnemies.size() && !greenEnemies.size() && !redEnemies.size() && !blueEnemies.size())
+	if (!redEnemies.size() && !greenEnemies.size() && !yellowEnemies.size() && !blueEnemies.size()) {
 		srand(time(NULL));
-	int randomMonster = 2;
-	bool greenVector = rand() % 2;
-	Enemy* enemyTmp;
-	switch (randomMonster)
-	{
-	case 0:
-		for (int i = 0; i < 6; i++)
+		int randomMonster = rand() % 4;
+		bool greenVector = rand() % 2;
+		Enemy* enemyTmp;
+		switch (randomMonster)
 		{
-			enemyTmp = createMonster("assets/yellow1.png", i * 80, -50, randomMonster, 3, 2, true);
-			yellowEnemies.emplace_back(enemyTmp);
+		case 0:
+			for (int i = 0; i < 6; i++)
+			{
+				enemyTmp = createMonster("assets/yellow1.png", i * 80, -50, randomMonster, 3, 2, true);
+				yellowEnemies.emplace_back(enemyTmp);
+			}
+			break;
+		case 1:
+			for (int i = 0; i < 5; i++)
+			{
+				enemyTmp = createMonster("assets/red1.png", i * 120, -50, randomMonster, 3, 1, true);
+				redEnemies.emplace_back(enemyTmp);
+			}
+			break;
+		case 2:
+			for (int i = 1; i < 7; i++)
+			{
+				if (i % 2 == 0)
+					greenVector = true;
+				else
+					greenVector = false;
+				enemyTmp = createMonster("assets/green1.png", i * 100, -50, randomMonster, 3, 1, greenVector);
+				greenEnemies.emplace_back(enemyTmp);
+			}
+			break;
+		case 3:
+			for (int i = 0; i < 6; i++)
+			{
+				enemyTmp = createMonster("assets/blue1.png", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
+				blueEnemies.emplace_back(enemyTmp);
+			}
+			break;
 		}
-		break;
-	case 1:
-		for (int i = 0; i < 5; i++)
-		{
-			enemyTmp = createMonster("assets/red1.png", i * 120, -50, randomMonster, 3, 1, true);
-			redEnemies.emplace_back(enemyTmp);
-		}
-		break;
-	case 2:
-		for (int i = 1; i < 6; i++)
-		{
-			if (i % 2 == 0)
-				greenVector = true;
-			else
-				greenVector = false;
-			enemyTmp = createMonster("assets/green1.png", i * 100, -50, randomMonster, 3, 1, greenVector);
-			greenEnemies.emplace_back(enemyTmp);
-		}
-		break;
-	case 3:
-		for (int i = 0; i < 5; i++)
-		{
-			enemyTmp = createMonster("assets/blue1.png", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
-			blueEnemies.emplace_back(enemyTmp);
-		}
-		break;
 	}
-	
 }
 
 void EnemyManager::moveAll()
@@ -119,44 +118,47 @@ void EnemyManager::moveAll()
 
 void EnemyManager::randomShots()
 {
-	srand(time(NULL));
-	if (yellowEnemies.size() > 0)
-	{
-		int random = 0;
-		for (int i = 0; i < yellowEnemies.size(); i++)
+	if (shootDelay == shootDelay2) {
+		srand(time(NULL));
+		if (yellowEnemies.size() > 0)
 		{
-			if (rand() % 50 == 1)
-				yellowEnemies[i]->shoot();
+			int random = 0;
+			for (int i = 0; i < yellowEnemies.size(); i++)
+			{
+				if (rand() % 4 == 2)
+					yellowEnemies[i]->shoot();
+			}
 		}
-	}
-	if (blueEnemies.size() > 0)
-	{
-		int random = 0;
-		for (int i = 0; i < blueEnemies.size(); i++)
+		if (blueEnemies.size() > 0)
 		{
-			if (rand() % 50 == 1)
-				blueEnemies[i]->shoot();
+			int random = 0;
+			for (int i = 0; i < blueEnemies.size(); i++)
+			{
+				if (rand() % 3)
+					blueEnemies[i]->shoot();
+			}
 		}
-	}
-	if (redEnemies.size() > 0)
-	{
-		int random = 0;
-		for (int i = 0; i < redEnemies.size(); i++)
+		if (redEnemies.size() > 0)
 		{
-			if (rand() % 50 == 1)
-				redEnemies[i]->shoot();
+			int random = 0;
+			for (int i = 0; i < redEnemies.size(); i++)
+			{
+				if (rand() % 4 == 2)
+					redEnemies[i]->shoot();
+			}
 		}
-	}
-	if (greenEnemies.size() > 0)
-	{
-		int random = 0;
-		for (int i = 0; i < greenEnemies.size(); i++)
+		if (greenEnemies.size() > 0)
 		{
-			if (rand() % 50 == 1)
-				greenEnemies[i]->shoot();
+			int random = 0;
+			for (int i = 0; i < greenEnemies.size(); i++)
+			{
+				if (rand() % 4 == 2)
+					greenEnemies[i]->shoot();
+			}
 		}
+		shootDelay = 0;
 	}
-
+	shootDelay += 1;
 }
 
 void EnemyManager::destroyInactive()
@@ -182,7 +184,7 @@ void EnemyManager::destroyInactive()
 		for (int i = 0; i < redEnemies.size(); i++)
 		{
 			if (!redEnemies[i]->active)
-				redEnemies.erase(redEnemies.begin()+i);
+				redEnemies.erase(redEnemies.begin() + i);
 		}
 	}
 	if (greenEnemies.size() > 0)
