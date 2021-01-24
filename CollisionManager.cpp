@@ -3,30 +3,45 @@
 #include "AssetManager.h"
 #include "constants.h"
 #include <iostream>
+
 AssetManager* assetManager = new AssetManager();
+//add sound mixer object here
 
 std::vector<std::unique_ptr<Projectile>> friendlyProjectiles;
 std::vector<std::unique_ptr<Projectile>> enemyProjectiles;
+
+
 
 void CollisionManager::init()
 {
     assetManager->AddTexture("Bullet", "assets/bullet.png"); //adds projectile texture to asset manager
     assetManager->AddTexture("enemyBullet", "assets/fallingbullet.png");
     assetManager->AddTexture("background", "assets/background.png");
-    Projectile* tmp;
-    for (int i = 0;i < SCREEN_WIDTH;i += 50)
+
+    Projectile* tmp = new Projectile(-60, 50, 1, 0); //creates  friendly projectile that stays idle outside the screen so that enemyProjectiles is never empty
+    enemyProjectiles.emplace_back(tmp);
+    tmp = new Projectile(-60, 50, 1, 0); //same as above but for friendlyProjectiles
+    friendlyProjectiles.emplace_back(tmp);
+
+    /*for (int i = 0;i < SCREEN_WIDTH;i += 50)
     {
         tmp = new Projectile(i, 0, 1, i / 50 + 1); //creates projectiles and adds them to vector
         enemyProjectiles.emplace_back(tmp);
-    }
+    }*/
 }
 
 void CollisionManager::add(Projectile* tmp, bool isEnemy)
 {
-    if (isEnemy) 
+    if (isEnemy)
+    {
+        //play enemy shooting sound here
         enemyProjectiles.emplace_back(tmp);
+    }
     else
-       friendlyProjectiles.emplace_back(tmp);
+    {
+        //play spaceship shooting sound here
+        friendlyProjectiles.emplace_back(tmp);
+    }
 }
 
 void CollisionManager::refresh()
@@ -58,9 +73,15 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
         {
             if (Collision::AABB(e->GetRectangle(), tmp))
             {
+                //play collision (bullet x enemy) sound here
                 e->deactive();
                 p->destroy();
                 cout << "Blue enemy hit!\n";
+            }
+            if (e->GetRectangle().y > SCREEN_HEIGHT)
+            {
+                e->deactive();
+                printf("Enemy out of range!");
             }
         }
 
@@ -68,9 +89,15 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
         {
             if (Collision::AABB(e->GetRectangle(), tmp))
             {
+                //play collision (bullet x enemy) sound here
                 e->deactive();
                 p->destroy();
                 cout << "Yellow enemy hit!\n";
+            }
+            if (e->GetRectangle().y > SCREEN_HEIGHT)
+            {
+                e->deactive();
+                printf("Enemy out of range!\n");
             }
         }
 
@@ -78,9 +105,15 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
         {
             if (Collision::AABB(e->GetRectangle(), tmp))
             {
+                //play collision (bullet x enemy) sound here
                 e->deactive();
                 p->destroy();
                 cout << "Green enemy hit!\n";
+            }
+            if (e->GetRectangle().y > SCREEN_HEIGHT)
+            {
+                e->deactive();
+                printf("Enemy out of range!\n");
             }
         }
 
@@ -88,9 +121,16 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
         {
             if (Collision::AABB(e->GetRectangle(), tmp))
             {
+                //play collision (bullet x enemy) sound here
                 e->deactive();
                 p->destroy();
                 cout << "Red enemy hit!\n";
+            }
+            if (e->GetRectangle().y > SCREEN_HEIGHT)
+            {
+                e->deactive();
+                printf("Enemy out of range!\n");
+
             }
         }
 
@@ -107,6 +147,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
     {
         if (Collision::AABB(spaceship.getRect(), p->GetRectangle())) //checks if two rectangles (player's and enemy's) collide
         {
+            //play collision (enemy bullet x spaceship) sound here
             std::cout << "Player hit!\n";
             p->destroy();
         }

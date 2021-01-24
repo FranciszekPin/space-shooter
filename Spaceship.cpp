@@ -72,9 +72,9 @@ void Spaceship::move() {
 
 void Spaceship::shoot() 
 {
-    Projectile* tmp = new Projectile(position.x + (position.w / 2 - 19/*adjust this if needed*/), position.y + 20, 1, -10);
+    Projectile* tmp = new Projectile(position.x + (position.w / 2 - 19/*adjust this if needed*/), position.y + 20, 1, -6);
     CollisionManager::add(tmp, 0);
-    tmp = new Projectile(position.x + (position.w / 2 + 13/*adjust this if needed*/), position.y + 20, 1, -10);
+    tmp = new Projectile(position.x + (position.w / 2 + 13/*adjust this if needed*/), position.y + 20, 1, -6);
     CollisionManager::add(tmp, 0);
 }
 

@@ -86,7 +86,6 @@ void GameManager::startGame() {
         {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
-            zegar.render();
 
             CollisionManager::update(spaceship, enemyManager);
             CollisionManager::refresh();
@@ -98,7 +97,8 @@ void GameManager::startGame() {
             spaceship.move();
             enemyManager.randomShots();
 
-            CollisionManager::render();
+            CollisionManager::render(); 
+            zegar.render();
             enemyManager.moveAll();
             spaceship.render();
 
