@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include "Projectile.h"
 #include "CollisionManager.h"
-
+#include "MusicManager.h"
+MusicManager* jukebox3 = new MusicManager();
 Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
     shipPosX = SCREEN_WIDTH/2 - SHIP_WIDTH/2;
     shipPosY = SCREEN_HEIGHT-SHIP_HEIGHT*2;
@@ -20,6 +21,7 @@ Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
     SDL_FreeSurface(tmpSurface);
     if (!tmpSurface)
         printf("Failed to create surface %s\n", SDL_GetError());
+    jukebox3->init();
 
     this->renderer = renderer;
 }
@@ -72,6 +74,7 @@ void Spaceship::move() {
 
 void Spaceship::shoot() 
 {
+    jukebox3->playShot();
     Projectile* tmp = new Projectile(position.x + (position.w / 2 - 19/*adjust this if needed*/), position.y + 20, 1, -6);
     CollisionManager::add(tmp, 0);
     tmp = new Projectile(position.x + (position.w / 2 + 13/*adjust this if needed*/), position.y + 20, 1, -6);
