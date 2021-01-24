@@ -137,7 +137,7 @@ void Enemy::deactive()
 
 void Enemy::shoot()
 {
-	Projectile* tmp = new Projectile(position.x + (position.w / 2 + 0/*adjust this if needed*/), position.y + 0/*adjust this if needed*/, 1, 10);
+	Projectile* tmp = new Projectile(position.x + (position.w / 2 - 5/*adjust this if needed*/), position.y + position.h - 10/*adjust this if needed*/, 1, 10);
 	CollisionManager::add(tmp, 1);
 }
 Enemy::~Enemy()

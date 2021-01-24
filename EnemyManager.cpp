@@ -125,7 +125,7 @@ void EnemyManager::randomShots()
 		int random = 0;
 		for (int i = 0; i < yellowEnemies.size(); i++)
 		{
-			if (rand() % 50 == 1)
+			if (rand() % 2)
 				yellowEnemies[i]->shoot();
 		}
 	}
@@ -134,7 +134,7 @@ void EnemyManager::randomShots()
 		int random = 0;
 		for (int i = 0; i < blueEnemies.size(); i++)
 		{
-			if (rand() % 50 == 1)
+			if (rand() % 2)
 				blueEnemies[i]->shoot();
 		}
 	}
@@ -143,7 +143,7 @@ void EnemyManager::randomShots()
 		int random = 0;
 		for (int i = 0; i < redEnemies.size(); i++)
 		{
-			if (rand() % 50 == 1)
+			if (rand() % 2)
 				redEnemies[i]->shoot();
 		}
 	}
@@ -152,7 +152,7 @@ void EnemyManager::randomShots()
 		int random = 0;
 		for (int i = 0; i < greenEnemies.size(); i++)
 		{
-			if (rand() % 50 == 1)
+			if (rand() % 2)
 				greenEnemies[i]->shoot();
 		}
 	}
