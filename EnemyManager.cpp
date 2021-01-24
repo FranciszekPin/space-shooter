@@ -14,9 +14,9 @@ EnemyManager::EnemyManager(SDL_Renderer* r)
 }
 
 
-Enemy* EnemyManager::createMonster(const char* imgSrc, int x, int y, int creatureType, int xspeed, int yspeed, bool moveVector)
+Enemy* EnemyManager::createMonster(std::string texID, int x, int y, int creatureType, int xspeed, int yspeed, bool moveVector)
 {
-	Enemy* enem = new Enemy(renderer, imgSrc, x, y, creatureType, xspeed, yspeed, moveVector);
+	Enemy* enem = new Enemy(renderer, texID, x, y, creatureType, xspeed, yspeed, moveVector);
 	return enem;
 }
 
@@ -26,21 +26,23 @@ void EnemyManager::spawnMonsters()
 		srand(time(NULL));
 		int randomMonster = rand() % 4;
 		bool greenVector = rand() % 2;
-		Enemy* enemyTmp;
+		//Enemy* enemyTmp;
 		switch (randomMonster)
 		{
 		case 0:
 			for (int i = 0; i < 6; i++)
 			{
-				enemyTmp = createMonster("assets/yellow_anim.png", i * 80, -50, randomMonster, 3, 2, true);
-				yellowEnemies.emplace_back(enemyTmp);
+				//enemyTmp = createMonster("yellow", i * 80, -50, randomMonster, 3, 2, true);
+				//yellowEnemies.emplace_back(enemyTmp);
+				yellowEnemies.push_back(std::make_unique<Enemy>(renderer,"yellow", i * 80, -50, randomMonster, 3, 2, true));
 			}
 			break;
 		case 1:
 			for (int i = 0; i < 5; i++)
 			{
-				enemyTmp = createMonster("assets/red_anim.png", i * 120, -50, randomMonster, 3, 1, true);
-				redEnemies.emplace_back(enemyTmp);
+				//enemyTmp = createMonster("red", i * 120, -50, randomMonster, 3, 1, true);
+				//redEnemies.emplace_back(enemyTmp);
+				redEnemies.push_back(std::make_unique<Enemy>(renderer, "red", i * 120, -50, randomMonster, 3, 1, true));
 			}
 			break;
 		case 2:
@@ -50,15 +52,17 @@ void EnemyManager::spawnMonsters()
 					greenVector = true;
 				else
 					greenVector = false;
-				enemyTmp = createMonster("assets/green_anim.png", i * 100, -50, randomMonster, 3, 1, greenVector);
-				greenEnemies.emplace_back(enemyTmp);
+				//enemyTmp = createMonster("green", i * 100, -50, randomMonster, 3, 1, greenVector);
+				//greenEnemies.emplace_back(enemyTmp);
+				greenEnemies.push_back(std::make_unique<Enemy>(renderer, "green", i * 100, -50, randomMonster, 3, 1, greenVector));
 			}
 			break;
 		case 3:
 			for (int i = 0; i < 6; i++)
 			{
-				enemyTmp = createMonster("assets/blue_anim.png", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
-				blueEnemies.emplace_back(enemyTmp);
+				//enemyTmp = createMonster("blue", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
+				//blueEnemies.emplace_back(enemyTmp);
+				blueEnemies.push_back(std::make_unique<Enemy>(renderer, "blue", i * 200, i * 50 - 200, randomMonster, 3, 2, true));
 			}
 			break;
 		}

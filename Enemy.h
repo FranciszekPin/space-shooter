@@ -2,6 +2,7 @@
 #ifndef SPACE_SHOOTER_ENEMY_H
 #define SPACE_SHOOTER_ENEMY_H
 #include "sdlsystem.h"
+#include <string>
 
 class Enemy
 {
@@ -19,10 +20,11 @@ public:
 	bool moveVector = true;
 
 	bool active = true;
-	SDL_Texture* enemyImg;
+	std::string textureID;
 	SDL_Rect position, srcR;
 
-	Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, int xspeed, int yspeed, bool moveVector);
+	Enemy(SDL_Renderer* r, std::string texID, int x, int y, int creature, int xspeed, int yspeed, bool moveVector);
+	static void init();
 	void move();
 	int  velocityX = 3;
 	int	velocityY = 1;

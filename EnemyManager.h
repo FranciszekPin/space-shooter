@@ -13,7 +13,7 @@ private:
 	SDL_Renderer* renderer;
 public:
 	int shootDelay2 = 50;
-	Enemy* createMonster(const char* imgSrc, int x, int y, int creatureType, int xspeed, int yspeed, bool moveVector);
+	Enemy* createMonster(std::string texID, int x, int y, int creatureType, int xspeed, int yspeed, bool moveVector);
 	EnemyManager(SDL_Renderer* r);
 	vector<unique_ptr<Enemy> > redEnemies;
 	vector<unique_ptr<Enemy> > blueEnemies;

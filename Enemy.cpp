@@ -4,26 +4,22 @@
 #include "constants.h"
 #include <string>
 #include "sdlsystem.h"
-#include <string>
 #include "math.h"
 #include "Projectile.h"
 #include "CollisionManager.h"
 #include "MusicManager.h"
+#include "AssetManager.h"
 
 MusicManager* jukebox2 = new MusicManager();
+AssetManager* assetManagerE = new AssetManager();
 
-Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, int xspeed, int yspeed, bool V)
+Enemy::Enemy(SDL_Renderer* r, std::string texID, int x, int y, int creature, int xspeed, int yspeed, bool V)
 {
 	moveVector = V;
 	this->renderer = r;
 	creatureType = creature;
-	SDL_Surface* tmpSurface = IMG_Load(imgSrc);
-	enemyImg = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-	if (!enemyImg)
-		printf("Failed to create texture\n");
-	SDL_FreeSurface(tmpSurface);
-	if (!tmpSurface)
-		printf("Failed to create surface\n");
+	textureID = texID;
+
 	if (creature == 1) {
 		prevPosY = y + 100;
 		prevPosX = x;
@@ -45,6 +41,14 @@ Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, in
 	velocityX = xspeed;
 	velocityY = yspeed;
 	jukebox2->init();
+}
+
+void Enemy::init()
+{
+	assetManagerE->AddTexture("blue", "assets/blue_anim.png");
+	assetManagerE->AddTexture("yellow", "assets/yellow_anim.png");
+	assetManagerE->AddTexture("green", "assets/green_anim.png");
+	assetManagerE->AddTexture("red", "assets/red_anim.png");
 }
 
 void Enemy::move()
@@ -136,7 +140,7 @@ void Enemy::move()
 	}
 
 	srcR.x = srcR.w * static_cast<int>((SDL_GetTicks() / 200) % 2);
-	SDL_RenderCopy(renderer, enemyImg, &srcR, &position);
+	SDL_RenderCopy(renderer, assetManagerE->GetTexture(textureID), &srcR, &position);
 }
 
 void Enemy::deactive()
@@ -152,9 +156,7 @@ void Enemy::shoot()
 	CollisionManager::add(tmp, 1);
 }
 Enemy::~Enemy()
-{
-	SDL_DestroyTexture(enemyImg);
-}
+{}
 
 SDL_Rect Enemy::GetRectangle()
 {

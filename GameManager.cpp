@@ -68,6 +68,7 @@ int GameManager::startGame() {
     EnemyManager enemyManager(renderer);
     Spaceship spaceship(renderer, "xd");
     Background B;
+    Enemy::init();
 
     while (1) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
