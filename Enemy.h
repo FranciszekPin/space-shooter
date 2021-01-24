@@ -28,6 +28,7 @@ public:
 	int	velocityY = 1;
 	void deactive();
 	void shoot();
+	SDL_Rect GetRectangle();
 	~Enemy();
 };
 

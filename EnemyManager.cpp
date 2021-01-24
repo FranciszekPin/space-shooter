@@ -9,10 +9,6 @@
 #include <cstdlib>
 #include <ctime>
 
-
-
-
-
 EnemyManager::EnemyManager(SDL_Renderer* r)
 {
 	renderer = r;
@@ -37,14 +33,14 @@ void EnemyManager::spawnMonsters()
 	case 0:
 		for (int i = 0; i < 6; i++)
 		{
-			enemyTmp = createMonster("assets/yellow1.bmp", i * 80, -50, randomMonster, 3, 2, true);
+			enemyTmp = createMonster("assets/yellow1.png", i * 80, -50, randomMonster, 3, 2, true);
 			yellowEnemies.emplace_back(enemyTmp);
 		}
 		break;
 	case 1:
 		for (int i = 0; i < 5; i++)
 		{
-			enemyTmp = createMonster("assets/red1.bmp", i * 120, -50, randomMonster, 3, 1, true);
+			enemyTmp = createMonster("assets/red1.png", i * 120, -50, randomMonster, 3, 1, true);
 			redEnemies.emplace_back(enemyTmp);
 		}
 		break;
@@ -55,19 +51,19 @@ void EnemyManager::spawnMonsters()
 				greenVector = true;
 			else
 				greenVector = false;
-			enemyTmp = createMonster("assets/green1.bmp", i * 100, -50, randomMonster, 3, 1, greenVector);
-			redEnemies.emplace_back(enemyTmp);
+			enemyTmp = createMonster("assets/green1.png", i * 100, -50, randomMonster, 3, 1, greenVector);
+			greenEnemies.emplace_back(enemyTmp);
 		}
 		break;
 	case 3:
 		for (int i = 0; i < 5; i++)
 		{
-			enemyTmp = createMonster("assets/blue1.bmp", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
-			redEnemies.emplace_back(enemyTmp);
+			enemyTmp = createMonster("assets/blue1.png", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
+			blueEnemies.emplace_back(enemyTmp);
 		}
 		break;
 	}
-	}
+	
 }
 
 void EnemyManager::moveAll()
@@ -129,7 +125,7 @@ void EnemyManager::randomShots()
 		int random = 0;
 		for (int i = 0; i < yellowEnemies.size(); i++)
 		{
-			if (rand() % 2)
+			if (rand() % 50 == 1)
 				yellowEnemies[i]->shoot();
 		}
 	}
@@ -138,7 +134,7 @@ void EnemyManager::randomShots()
 		int random = 0;
 		for (int i = 0; i < blueEnemies.size(); i++)
 		{
-			if (rand() % 2)
+			if (rand() % 50 == 1)
 				blueEnemies[i]->shoot();
 		}
 	}
@@ -147,7 +143,7 @@ void EnemyManager::randomShots()
 		int random = 0;
 		for (int i = 0; i < redEnemies.size(); i++)
 		{
-			if (rand() % 2)
+			if (rand() % 50 == 1)
 				redEnemies[i]->shoot();
 		}
 	}
@@ -156,21 +152,21 @@ void EnemyManager::randomShots()
 		int random = 0;
 		for (int i = 0; i < greenEnemies.size(); i++)
 		{
-			if (rand() % 2)
+			if (rand() % 50 == 1)
 				greenEnemies[i]->shoot();
 		}
+	}
 
 }
 
 void EnemyManager::destroyInactive()
-
 {
 	if (yellowEnemies.size() > 0)
 	{
 		int random = 0;
 		for (int i = 0; i < yellowEnemies.size(); i++) {
 			if (!yellowEnemies[i]->active)
-				yellowEnemies.erase(i);
+				yellowEnemies.erase(yellowEnemies.begin() + i);
 		}
 	}
 	if (blueEnemies.size() > 0)
@@ -178,23 +174,23 @@ void EnemyManager::destroyInactive()
 		for (int i = 0; i < blueEnemies.size(); i++)
 		{
 			if (!blueEnemies[i]->active)
-				blueEnemies.erase(i);
+				blueEnemies.erase(blueEnemies.begin() + i);
 		}
 	}
 	if (redEnemies.size() > 0)
 	{
-		for (int i = 0; i < greenEnemies.size(); i++)
+		for (int i = 0; i < redEnemies.size(); i++)
 		{
-			if (!greenEnemies[i]->active)
-				greenEnemies.erase(i);
+			if (!redEnemies[i]->active)
+				redEnemies.erase(redEnemies.begin()+i);
 		}
 	}
 	if (greenEnemies.size() > 0)
 	{
-		for (int i = 0; i < redEnemies.size(); i++)
+		for (int i = 0; i < greenEnemies.size(); i++)
 		{
-			if (!redEnemies[i]->active)
-				redEnemies.erase(i);
+			if (!greenEnemies[i]->active)
+				greenEnemies.erase(greenEnemies.begin() + i);
 		}
-
+	}
 }

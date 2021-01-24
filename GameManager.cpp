@@ -6,7 +6,7 @@
 #include "Clock.h"
 #include <cstdio>
 #include <ctime>
-#include "Enemy.h"
+#include "EnemyManager.h"
 #include"CollisionManager.h"
 
 SDL_Renderer* GameManager::renderer = nullptr;
@@ -58,7 +58,9 @@ void GameManager::startGame() {
     Clock zegar(renderer);
 
     //Creating a spaceship
-    Spaceship spaceship(GameManager::renderer, "xd");
+    EnemyManager enemyManager(renderer);
+    Spaceship spaceship(renderer, "xd");
+    enemyManager.spawnMonsters();
 
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -86,12 +88,15 @@ void GameManager::startGame() {
             // adding all render objects should be done before this function
             zegar.render();
 
-            spaceship.move();
-            spaceship.render();
-            
+            CollisionManager::update(spaceship, enemyManager);
             CollisionManager::refresh();
-            CollisionManager::update(spaceship);
+            enemyManager.destroyInactive();
+
+            spaceship.move();
+            enemyManager.moveAll();
+            enemyManager.randomShots();
             CollisionManager::render();
+            spaceship.render();
 
             SDL_RenderPresent(renderer);
         }

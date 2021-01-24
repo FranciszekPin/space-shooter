@@ -6,7 +6,8 @@
 #include "sdlsystem.h"
 #include <string>
 #include "math.h"
-
+#include "Projectile.h"
+#include "CollisionManager.h"
 
 Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, int xspeed, int yspeed, bool V)
 {
@@ -136,9 +137,15 @@ void Enemy::deactive()
 
 void Enemy::shoot()
 {
-
+	Projectile* tmp = new Projectile(position.x + (position.w / 2 + 0/*adjust this if needed*/), position.y + 0/*adjust this if needed*/, 1, 10);
+	CollisionManager::add(tmp, 1);
 }
 Enemy::~Enemy()
 {
 	SDL_DestroyTexture(enemyImg);
+}
+
+SDL_Rect Enemy::GetRectangle()
+{
+	return position;
 }

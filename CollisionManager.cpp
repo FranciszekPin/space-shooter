@@ -3,7 +3,6 @@
 #include "AssetManager.h"
 #include "constants.h"
 #include <iostream>
-
 AssetManager* assetManager = new AssetManager();
 
 std::vector<std::unique_ptr<Projectile>> friendlyProjectiles;
@@ -28,6 +27,7 @@ void CollisionManager::add(Projectile* tmp, bool isEnemy)
     else
        friendlyProjectiles.emplace_back(tmp);
 }
+
 void CollisionManager::refresh()
 {
     enemyProjectiles.erase(std::remove_if(std::begin(enemyProjectiles), std::end(enemyProjectiles),
@@ -45,17 +45,54 @@ void CollisionManager::refresh()
         std::end(friendlyProjectiles));
 }
 
-void CollisionManager::update(Spaceship& spaceship)
+void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
 {
     SDL_Rect tmp;
 
     for (auto& p : friendlyProjectiles) //updates friendly projectiles, draws them and checks if they collide with enemies
     {
-        /*for (auto& e : enemies)
-        {
-            //if collision then ...
-        }*/
         tmp = p->GetRectangle();
+
+        for (auto& e : enemyManager.blueEnemies)
+        {
+            if (Collision::AABB(e->GetRectangle(), tmp))
+            {
+                e->deactive();
+                p->destroy();
+                cout << "Blue enemy hit!\n";
+            }
+        }
+
+        for (auto& e : enemyManager.yellowEnemies)
+        {
+            if (Collision::AABB(e->GetRectangle(), tmp))
+            {
+                e->deactive();
+                p->destroy();
+                cout << "Yellow enemy hit!\n";
+            }
+        }
+
+        for (auto& e : enemyManager.greenEnemies)
+        {
+            if (Collision::AABB(e->GetRectangle(), tmp))
+            {
+                e->deactive();
+                p->destroy();
+                cout << "Green enemy hit!\n";
+            }
+        }
+
+        for (auto& e : enemyManager.redEnemies)
+        {
+            if (Collision::AABB(e->GetRectangle(), tmp))
+            {
+                e->deactive();
+                p->destroy();
+                cout << "Red enemy hit!\n";
+            }
+        }
+
         if (tmp.y < 0 - tmp.h || tmp.y>SCREEN_HEIGHT)
         {
             p->destroy();
@@ -69,7 +106,6 @@ void CollisionManager::update(Spaceship& spaceship)
     {
         if (Collision::AABB(spaceship.getRect(), p->GetRectangle())) //checks if two rectangles (player's and enemy's) collide
         {
-
             std::cout << "Player hit!\n";
             p->destroy();
         }
