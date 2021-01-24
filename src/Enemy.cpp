@@ -8,7 +8,8 @@
 #include "math.h"
 #include "Projectile.h"
 #include "CollisionManager.h"
-
+#include "MusicManager.h"
+MusicManager* jukebox2 = new MusicManager();
 Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, int xspeed, int yspeed, bool V)
 {
 	moveVector = V;
@@ -36,6 +37,7 @@ Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, in
 	position.w = 48;
 	velocityX = xspeed;
 	velocityY = yspeed;
+	jukebox2->init();
 	SDL_RenderCopy(renderer, enemyImg, NULL, &position);
 }
 
@@ -137,6 +139,7 @@ void Enemy::deactive()
 
 void Enemy::shoot()
 {
+	     jukebox2->playAlienShot();
 	Projectile* tmp = new Projectile(position.x + (position.w / 2 - 5/*adjust this if needed*/), position.y + position.h - 10/*adjust this if needed*/, 3, 10);
 	CollisionManager::add(tmp, 1);
 }

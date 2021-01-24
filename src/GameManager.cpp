@@ -19,7 +19,7 @@ GameManager::GameManager() {
 
 bool GameManager::init() {
     bool success = true;
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         success = false;
     }
@@ -36,6 +36,11 @@ bool GameManager::init() {
                 success = false;
             }
             else {
+                 if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2 ,2048)<0)
+                {
+                    printf("MIXER could not be created! SDL Error: %s\n", Mix_GetError());
+                success = false;
+                }
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
                 CollisionManager::init();
