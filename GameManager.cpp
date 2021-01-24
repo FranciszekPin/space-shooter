@@ -8,6 +8,9 @@
 #include <ctime>
 #include "EnemyManager.h"
 #include"CollisionManager.h"
+
+#include "Background.h"
+
 SDL_Renderer* GameManager::renderer = nullptr;
 
 GameManager::GameManager() {
@@ -64,6 +67,8 @@ void GameManager::startGame() {
     //Creating a spaceship
     EnemyManager enemyManager(renderer);
     Spaceship spaceship(renderer, "xd");
+
+
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
@@ -88,6 +93,9 @@ void GameManager::startGame() {
         {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
+           
+            Background::render();
+            zegar.render();
 
             CollisionManager::update(spaceship, enemyManager);
             CollisionManager::refresh();
