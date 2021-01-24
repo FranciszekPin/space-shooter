@@ -8,6 +8,7 @@
 #include <ctime>
 #include "EnemyManager.h"
 #include"CollisionManager.h"
+
 #include "Background.h"
 
 SDL_Renderer* GameManager::renderer = nullptr;
@@ -67,6 +68,7 @@ void GameManager::startGame() {
     EnemyManager enemyManager(renderer);
     Spaceship spaceship(renderer, "xd");
 
+
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
@@ -118,5 +120,6 @@ void GameManager::startGame() {
 
 GameManager::~GameManager() {
     SDL_DestroyWindow(window);
+    Mix_Quit();
     SDL_Quit();
 }

@@ -9,7 +9,9 @@
 #include "Projectile.h"
 #include "CollisionManager.h"
 #include "MusicManager.h"
+
 MusicManager* jukebox2 = new MusicManager();
+
 Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, int xspeed, int yspeed, bool V)
 {
 	moveVector = V;

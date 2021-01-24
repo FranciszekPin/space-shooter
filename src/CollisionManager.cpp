@@ -6,6 +6,8 @@
 #include <algorithm>
 #include "MusicManager.h"
 
+
+
 AssetManager* assetManager = new AssetManager();
 MusicManager* jukebox = new MusicManager();
 //add sound mixer object here

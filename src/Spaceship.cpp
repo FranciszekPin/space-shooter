@@ -29,6 +29,7 @@ Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
 void Spaceship::handleEvent(SDL_Event &e) {
     if(e.type == SDL_KEYDOWN) {
         switch( e.key.keysym.sym ) {
+    
             case SDLK_w: shipVelY = -1; break;
             case SDLK_s: shipVelY = 1; break;
             case SDLK_a: shipVelX = -1; break;
