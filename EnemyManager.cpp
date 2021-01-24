@@ -32,14 +32,14 @@ void EnemyManager::spawnMonsters()
 		case 0:
 			for (int i = 0; i < 6; i++)
 			{
-				enemyTmp = createMonster("assets/yellow1.png", i * 80, -50, randomMonster, 3, 2, true);
+				enemyTmp = createMonster("assets/yellow_anim.png", i * 80, -50, randomMonster, 3, 2, true);
 				yellowEnemies.emplace_back(enemyTmp);
 			}
 			break;
 		case 1:
 			for (int i = 0; i < 5; i++)
 			{
-				enemyTmp = createMonster("assets/red1.png", i * 120, -50, randomMonster, 3, 1, true);
+				enemyTmp = createMonster("assets/red_anim.png", i * 120, -50, randomMonster, 3, 1, true);
 				redEnemies.emplace_back(enemyTmp);
 			}
 			break;
@@ -50,14 +50,14 @@ void EnemyManager::spawnMonsters()
 					greenVector = true;
 				else
 					greenVector = false;
-				enemyTmp = createMonster("assets/green1.png", i * 100, -50, randomMonster, 3, 1, greenVector);
+				enemyTmp = createMonster("assets/green_anim.png", i * 100, -50, randomMonster, 3, 1, greenVector);
 				greenEnemies.emplace_back(enemyTmp);
 			}
 			break;
 		case 3:
 			for (int i = 0; i < 6; i++)
 			{
-				enemyTmp = createMonster("assets/blue1.png", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
+				enemyTmp = createMonster("assets/blue_anim.png", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
 				blueEnemies.emplace_back(enemyTmp);
 			}
 			break;

@@ -51,7 +51,7 @@ bool GameManager::init() {
     return success;
 }
 
-void GameManager::startGame() {
+int GameManager::startGame() {
 
     double duration;
     double lastTime = (std::clock()) / (double)CLOCKS_PER_SEC;
@@ -69,7 +69,7 @@ void GameManager::startGame() {
     Spaceship spaceship(renderer, "xd");
     Background B;
 
-    while (!quit) {
+    while (1) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
@@ -77,7 +77,7 @@ void GameManager::startGame() {
         {
             if (e.type == SDL_QUIT)
             {
-                quit = true;
+                return 0;
             }
             else
             {

@@ -33,14 +33,18 @@ Enemy::Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, in
 		orbitX = x;
 		orbitY = y;
 	}
+	srcR.x = srcR.y = 0;
+	srcR.w = 21;
+	srcR.h = 15;
 	position.x = x;
 	position.y = y;
-	position.h = 48;
-	position.w = 48;
+	position.h = srcR.h * ENEMY_SCALE;
+	position.w = srcR.w * ENEMY_SCALE;
+
+
 	velocityX = xspeed;
 	velocityY = yspeed;
 	jukebox2->init();
-	SDL_RenderCopy(renderer, enemyImg, NULL, &position);
 }
 
 void Enemy::move()
@@ -130,7 +134,9 @@ void Enemy::move()
 			position.x += velocityX;
 		break;
 	}
-	SDL_RenderCopy(renderer, enemyImg, NULL, &position);
+
+	srcR.x = srcR.w * static_cast<int>((SDL_GetTicks() / 200) % 2);
+	SDL_RenderCopy(renderer, enemyImg, &srcR, &position);
 }
 
 void Enemy::deactive()

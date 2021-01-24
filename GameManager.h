@@ -15,7 +15,7 @@ public:
     static SDL_Renderer* renderer;
     GameManager();
     bool init();
-    void startGame();
+    int startGame();
     ~GameManager();
 };
 

@@ -20,7 +20,7 @@ public:
 
 	bool active = true;
 	SDL_Texture* enemyImg;
-	SDL_Rect position;
+	SDL_Rect position, srcR;
 
 	Enemy(SDL_Renderer* r, const char* imgSrc, int x, int y, int creature, int xspeed, int yspeed, bool moveVector);
 	void move();
