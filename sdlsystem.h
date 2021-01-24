@@ -12,7 +12,7 @@
 #else
     #include <SDL.h>
     #include <SDL_image.h>
-  #include <SDL2/SDL_mixer.h>
+    #include <SDL_mixer.h>
 #endif
 
 #endif //UNTITLED2_SDLSYSTEM_H

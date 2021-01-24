@@ -21,7 +21,6 @@ void CollisionManager::init()
 {
     assetManager->AddTexture("Bullet", "assets/bullet.png"); //adds projectile texture to asset manager
     assetManager->AddTexture("enemyBullet", "assets/fallingbullet.png");
-    assetManager->AddTexture("background", "assets/background.png");
 
     Projectile* tmp = new Projectile(-60, 50, 1, 0); //creates  friendly projectile that stays idle outside the screen so that enemyProjectiles is never empty
     enemyProjectiles.emplace_back(tmp);
@@ -176,8 +175,6 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
 
 void CollisionManager::render()
 {
-    assetManager->render("background");
-
     for (auto& p : friendlyProjectiles) //updates friendly projectiles, draws them and checks if they collide with enemies
     {
         

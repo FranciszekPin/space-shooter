@@ -67,7 +67,7 @@ void GameManager::startGame() {
     //Creating a spaceship
     EnemyManager enemyManager(renderer);
     Spaceship spaceship(renderer, "xd");
-
+    Background B;
 
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -94,7 +94,7 @@ void GameManager::startGame() {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
            
-            Background::render();
+            B.render();
             zegar.render();
 
             CollisionManager::update(spaceship, enemyManager);
