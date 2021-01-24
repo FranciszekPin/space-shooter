@@ -3,6 +3,7 @@
 #include "AssetManager.h"
 #include "constants.h"
 #include <iostream>
+#include <algorithm>
 
 AssetManager* assetManager = new AssetManager();
 //add sound mixer object here
