@@ -47,10 +47,10 @@ bool GameManager::init() {
 void GameManager::startGame() {
 
     double duration;
-    double lastTime = ( std::clock()) / (double) CLOCKS_PER_SEC;
+    double lastTime = (std::clock()) / (double)CLOCKS_PER_SEC;
     double deltaTime = 0;
     double timeSinceLastFrame = 0;
-
+    int secs = 0;
 
     bool quit = false;
 
@@ -60,7 +60,7 @@ void GameManager::startGame() {
     //Creating a spaceship
     EnemyManager enemyManager(renderer);
     Spaceship spaceship(renderer, "xd");
-    enemyManager.spawnMonsters();
+
 
     while (!quit) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -77,12 +77,12 @@ void GameManager::startGame() {
                 spaceship.handleEvent(e);
             }
         }
-        duration = ( std::clock()) / (double) CLOCKS_PER_SEC;
+        duration = (std::clock()) / (double)CLOCKS_PER_SEC;
         deltaTime = duration - lastTime;
         lastTime = duration;
         timeSinceLastFrame += deltaTime;
 
-        if (timeSinceLastFrame > 1.0/SCREEN_FPS)
+        if (timeSinceLastFrame > 1.0 / SCREEN_FPS)
         {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
@@ -91,7 +91,10 @@ void GameManager::startGame() {
             CollisionManager::update(spaceship, enemyManager);
             CollisionManager::refresh();
             enemyManager.destroyInactive();
-
+            secs = zegar.getTime().x + zegar.getTime().y * 10;
+            if (secs % 15)
+                enemyManager.shootDelay2 - 3;
+            enemyManager.spawnMonsters();
             spaceship.move();
             enemyManager.randomShots();
 
