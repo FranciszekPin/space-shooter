@@ -151,7 +151,7 @@ void Enemy::deactive()
 
 void Enemy::shoot()
 {
-	     jukebox2->playAlienShot();
+	jukebox2->playAlienShot();
 	Projectile* tmp = new Projectile(position.x + (position.w / 2 - 5/*adjust this if needed*/), position.y + position.h - 10/*adjust this if needed*/, 3, 10);
 	CollisionManager::add(tmp, 1);
 }

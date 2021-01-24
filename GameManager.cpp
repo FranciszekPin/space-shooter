@@ -37,10 +37,10 @@ bool GameManager::init() {
                 success = false;
             }
             else {
-                 if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2 ,2048)<0)
+                if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
                 {
                     printf("MIXER could not be created! SDL Error: %s\n", Mix_GetError());
-                success = false;
+                    success = false;
                 }
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
@@ -94,7 +94,7 @@ int GameManager::startGame() {
         {
             timeSinceLastFrame = 0;
             // adding all render objects should be done before this function
-           
+
             B.render();
             zegar.render();
 
@@ -103,12 +103,12 @@ int GameManager::startGame() {
             enemyManager.destroyInactive();
             secs = zegar.getTime().x + zegar.getTime().y * 10;
             if (secs % 15 && enemyManager.shootDelay2 > 20)
-                enemyManager.shootDelay2 - 2;
+                enemyManager.shootDelay2 - 4;
             enemyManager.spawnMonsters();
             spaceship.move();
             enemyManager.randomShots();
 
-            CollisionManager::render(); 
+            CollisionManager::render();
             zegar.render();
             enemyManager.moveAll();
             spaceship.render();

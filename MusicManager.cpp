@@ -11,6 +11,11 @@ void MusicManager::init()
     smallshot = Mix_LoadWAV("sounds/sound3.wav");
     //  Mix_FreeChunk(explosion);
     //  Mix_FreeMusic(background);
+    Mix_VolumeChunk(alienshot, soundVolume);
+    Mix_VolumeChunk(explosion, soundVolume);
+    Mix_VolumeChunk(smallshot, soundVolume);
+    Mix_VolumeMusic(soundVolume);
+
 }
 void MusicManager::playAlienShot()
 {

@@ -20,4 +20,7 @@ const int PLAYER_SPEED = 3;
 const int PLAYER_PROJECTILE_SPEED = -4;//negative
 const int PLAYER_PROJECTILE_SCALE = 1;
 
+
+//sound
+const int soundVolume = 3;
 #endif //SPACE_SHOOTER_CONSTANTS_H

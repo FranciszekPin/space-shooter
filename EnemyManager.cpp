@@ -34,7 +34,7 @@ void EnemyManager::spawnMonsters()
 			{
 				//enemyTmp = createMonster("yellow", i * 80, -50, randomMonster, 3, 2, true);
 				//yellowEnemies.emplace_back(enemyTmp);
-				yellowEnemies.push_back(std::make_unique<Enemy>(renderer,"yellow", i * 80, -50, randomMonster, 3, 2, true));
+				yellowEnemies.push_back(std::make_unique<Enemy>(renderer, "yellow", i * 80, -50, randomMonster, 3, 2, true));
 			}
 			break;
 		case 1:
