@@ -51,7 +51,7 @@ void Spaceship::handleEvent(SDL_Event &e) {
             case SDLK_s: shipVelY = 1; break;
             case SDLK_a: shipVelX = -1; break;
             case SDLK_d: shipVelX = 1; break;
-            case SDLK_SPACE: shoot(); break;
+            case SDLK_SPACE: if (e.key.repeat == 0)shoot(); break;
             default: break;
         }
     }

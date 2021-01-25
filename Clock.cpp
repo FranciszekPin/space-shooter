@@ -39,7 +39,7 @@ Clock::Clock(SDL_Renderer *renderer)
 SDL_Rect Clock::getTime()
 {
 	SDL_Rect time;
-	float t = SDL_GetTicks();
+	float t = SDL_GetTicks() - reset;
 		t *= 0.001f;
 		int sek = round(t);
 	time.x = (sek%60)%10 ;
@@ -81,4 +81,9 @@ void Clock::render()
         SDL_RenderCopy(TheRenderer, textures[getTime().w],&digitSRC,&digitDST);
          			getDigitParams(4);
         SDL_RenderCopy(TheRenderer, textures[getTime().h],&digitSRC,&digitDST);
+}
+
+void Clock::resetTIME()
+{
+	reset = SDL_GetTicks();
 }

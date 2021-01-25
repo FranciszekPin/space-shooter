@@ -61,12 +61,14 @@ int GameManager::startGame() {
 
     SDL_Event e;
     Clock zegar(renderer);
+    zegar.resetTIME();
 
     //Creating a spaceship
     EnemyManager enemyManager(renderer);
     Spaceship spaceship(renderer, "xd");
     Background B;
     Enemy::init();
+    CollisionManager::init();
 
     while (1) {
         if (!spaceship.isAlive())
@@ -105,11 +107,11 @@ int GameManager::startGame() {
             CollisionManager::update(spaceship, enemyManager);
             CollisionManager::refresh();
             enemyManager.destroyInactive();
-           // secs = zegar.getTime().x + zegar.getTime().y * 10;
-           // if ((secs % 18 > 15) && (enemyManager.shootDelay2 > 20))
-           //     enemyManager.shootDelay2 -= 4;
-           // if ((secs % 50 > 45) && (enemyManager.monstersSpeed < 4))
-           //     enemyManager.monstersSpeed += 1;
+           secs = zegar.getTime().x + zegar.getTime().y * 10;
+           if ((secs % 18 > 15) && (enemyManager.shootDelay2 > 20))
+               enemyManager.shootDelay2 -= 4;
+           if ((secs % 50 > 45) && (enemyManager.monstersSpeed < 4))
+               enemyManager.monstersSpeed += 1;
 
             enemyManager.spawnMonsters();
             spaceship.move();
@@ -133,7 +135,7 @@ void GameManager::playGame()
     SDL_Event e;
     Background B(123);
 start:
-    while (startGame())
+    if(startGame())
     {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
@@ -154,8 +156,8 @@ start:
                 }
             }
         }
+ 
     }
-        
 }
 
 GameManager::~GameManager() {

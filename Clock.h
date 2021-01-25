@@ -11,7 +11,9 @@ class Clock
 		SDL_Rect getTime();
 		void getDigitParams(int a);
 		void render();
+		void resetTIME();
 	private:
+		int reset;
 		SDL_Rect src;
 		SDL_Rect dst;
 		SDL_Renderer *TheRenderer;

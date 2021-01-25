@@ -22,9 +22,9 @@ void CollisionManager::init()
     assetManager->AddTexture("Bullet", "assets/bullet.png"); //adds projectile texture to asset manager
     assetManager->AddTexture("enemyBullet", "assets/fallingbullet.png");
 
-    Projectile* tmp = new Projectile(-60, 50, 1, 0); //creates  friendly projectile that stays idle outside the screen so that enemyProjectiles is never empty
+    Projectile* tmp = new Projectile(-600, 50, 1, 0); //creates  friendly projectile that stays idle outside the screen so that enemyProjectiles is never empty
     enemyProjectiles.emplace_back(tmp);
-    tmp = new Projectile(-60, 50, 1, 0); //same as above but for friendlyProjectiles
+    tmp = new Projectile(-600, 50, 1, 0); //same as above but for friendlyProjectiles
     friendlyProjectiles.emplace_back(tmp);
     jukebox->init();
     jukebox->playBackground();

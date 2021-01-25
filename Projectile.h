@@ -20,5 +20,5 @@ private:
 	bool active;
 	SDL_Rect srcR;
 	SDL_Rect sprite;
-	int  velocity = 1;//-1 gora
+	int  velocity = 1;//-1 up
 };

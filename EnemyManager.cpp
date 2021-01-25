@@ -26,23 +26,23 @@ void EnemyManager::spawnMonsters()
 		srand(time(NULL));
 		int randomMonster = rand() % 4;
 		bool greenVector = rand() % 2;
-		//Enemy* enemyTmp;
+		Enemy* enemyTmp;
 		switch (randomMonster)
 		{
 		case 0:
 			for (int i = 0; i < 6; i++)
 			{
-				//enemyTmp = createMonster("yellow", i * 80, -50, randomMonster, 3, 2, true);
-				//yellowEnemies.emplace_back(enemyTmp);
-				yellowEnemies.push_back(std::make_unique<Enemy>(renderer, "yellow", i * 80, -50, randomMonster, 3+ monstersSpeed, 2 + monstersSpeed, true));
+				enemyTmp = createMonster("yellow", i * 80, -50, randomMonster, 3, 2, true);
+				yellowEnemies.emplace_back(enemyTmp);
+				//yellowEnemies.push_back(std::make_unique<Enemy>(renderer, "yellow", i * 80, -50, randomMonster, 3+ monstersSpeed, 2 + monstersSpeed, true));
 			}
 			break;
 		case 1:
 			for (int i = 0; i < 5; i++)
 			{
-				//enemyTmp = createMonster("red", i * 120, -50, randomMonster, 3, 1, true);
-				//redEnemies.emplace_back(enemyTmp);
-				redEnemies.push_back(std::make_unique<Enemy>(renderer, "red", i * 120, -50, randomMonster, 3 + monstersSpeed, 1 + monstersSpeed, true));
+				enemyTmp = createMonster("red", i * 120, -50, randomMonster, 3, 1, true);
+				redEnemies.emplace_back(enemyTmp);
+				//redEnemies.push_back(std::make_unique<Enemy>(renderer, "red", i * 120, -50, randomMonster, 3 + monstersSpeed, 1 + monstersSpeed, true));
 			}
 			break;
 		case 2:
@@ -52,17 +52,17 @@ void EnemyManager::spawnMonsters()
 					greenVector = true;
 				else
 					greenVector = false;
-				//enemyTmp = createMonster("green", i * 100, -50, randomMonster, 3, 1, greenVector);
-				//greenEnemies.emplace_back(enemyTmp);
-				greenEnemies.push_back(std::make_unique<Enemy>(renderer, "green", i * 100, -50, randomMonster, 3 + monstersSpeed, 1 + monstersSpeed, greenVector));
+				enemyTmp = createMonster("green", i * 100, -50, randomMonster, 3, 1, greenVector);
+				greenEnemies.emplace_back(enemyTmp);
+				//greenEnemies.push_back(std::make_unique<Enemy>(renderer, "green", i * 100, -50, randomMonster, 3 + monstersSpeed, 1 + monstersSpeed, greenVector));
 			}
 			break;
 		case 3:
 			for (int i = 0; i < 6; i++)
 			{
-				//enemyTmp = createMonster("blue", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
-				//blueEnemies.emplace_back(enemyTmp);
-				blueEnemies.push_back(std::make_unique<Enemy>(renderer, "blue", i * 200, i * 50 - 200, randomMonster, 3 + monstersSpeed, 2 + monstersSpeed, true));
+				enemyTmp = createMonster("blue", i * 200, i * 50 - 200, randomMonster, 3, 2, true);
+				blueEnemies.emplace_back(enemyTmp);
+				//blueEnemies.push_back(std::make_unique<Enemy>(renderer, "blue", i * 200, i * 50 - 200, randomMonster, 3 + monstersSpeed, 2 + monstersSpeed, true));
 			}
 			break;
 		}

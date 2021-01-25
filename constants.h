@@ -14,7 +14,7 @@ const double SCREEN_FPS = 60;
 
 //in game objects
 const int ENEMY_SCALE = 3;
-const int ENEMY_PROJECTILE_SCALE = 3;
+const int ENEMY_PROJECTILE_SCALE = 2;
 const int ENEMY_PROJECTILE_SPEED = 6;//positive
 const int PLAYER_SPEED = 6;
 const int PLAYER_PROJECTILE_SPEED = -4;//negative
