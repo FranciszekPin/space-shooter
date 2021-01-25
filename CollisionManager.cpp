@@ -158,9 +158,10 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
         if (Collision::AABB(spaceship.getRect(), p->GetRectangle())) //checks if two rectangles (player's and enemy's) collide
         {
             //play collision (enemy bullet x spaceship) sound here
-                   jukebox->playExplosion();
+            jukebox->playExplosion();
             std::cout << "Player hit!\n";
             p->destroy();
+            spaceship.hit();
         }
         tmp = p->GetRectangle();
         if (tmp.y< 0 - tmp.h || tmp.y >SCREEN_HEIGHT)

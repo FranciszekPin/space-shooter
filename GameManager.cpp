@@ -111,6 +111,7 @@ int GameManager::startGame() {
             CollisionManager::render();
             zegar.render();
             enemyManager.moveAll();
+            spaceship.render_hp();
             spaceship.render();
 
             SDL_RenderPresent(renderer);

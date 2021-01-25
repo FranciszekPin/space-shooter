@@ -6,6 +6,7 @@
 #define SPACE_SHOOTER_SPACESHIP_H
 
 #include "sdlsystem.h" 
+#include "constants.h"
 
 class Spaceship {
 private:
@@ -15,16 +16,19 @@ private:
     SDL_Rect position;
     SDL_Texture *spaceshipImg;
     SDL_Renderer *renderer;
+    int hp = 5;
+    
 
 public:
     //Spaceship dimensions
     static const int SHIP_WIDTH = 84;
     static const int SHIP_HEIGHT = 60;
     //Maximum axis velocity of the spaceship
-    static const int SHIP_VELOCITY = 6;
+    static const int SHIP_VELOCITY = PLAYER_SPEED;
 
     Spaceship(SDL_Renderer *renderer, const char *imgSrc);
 
+    bool isAlive();
     //Handles keys pressed
     void handleEvent(SDL_Event &e);
     //Moves the spaceship in accordance to the velocity
@@ -32,6 +36,8 @@ public:
     //Shoots missiles
     void shoot();
     //Shows the spaceship on the screen
+    void render_hp();
+    void hit() { hp--; };
     void render();
     //Returns spaceship SDL_Rect
     SDL_Rect getRect();

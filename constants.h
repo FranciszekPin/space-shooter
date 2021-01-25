@@ -16,11 +16,11 @@ const double SCREEN_FPS = 60;
 const int ENEMY_SCALE = 3;
 const int ENEMY_PROJECTILE_SCALE = 3;
 const int ENEMY_PROJECTILE_SPEED = 6;//positive
-const int PLAYER_SPEED = 3;
+const int PLAYER_SPEED = 6;
 const int PLAYER_PROJECTILE_SPEED = -4;//negative
 const int PLAYER_PROJECTILE_SCALE = 1;
 
 
 //sound
-const int soundVolume = 3;
+const int soundVolume = 6;
 #endif //SPACE_SHOOTER_CONSTANTS_H

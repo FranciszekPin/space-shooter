@@ -1,14 +1,20 @@
 //
 // Created by ziemowit on 17.01.2021.
 //
-#include "constants.h"
 #include "Spaceship.h"
 #include <stdio.h>
 #include "Projectile.h"
 #include "CollisionManager.h"
 #include "MusicManager.h"
+#include "AssetManager.h"
+
+AssetManager* assetManagerS = new AssetManager;
+
 MusicManager* jukebox3 = new MusicManager();
 Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
+
+    assetManagerS->AddTexture("hp", "assets/hp3.png");
+
     shipPosX = SCREEN_WIDTH/2 - SHIP_WIDTH/2;
     shipPosY = SCREEN_HEIGHT-SHIP_HEIGHT*2;
 
@@ -24,6 +30,12 @@ Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
     jukebox3->init();
 
     this->renderer = renderer;
+}
+
+bool Spaceship::isAlive()
+{
+    if (hp == 0)return false;
+    else return true;
 }
 
 void Spaceship::handleEvent(SDL_Event &e) {
@@ -76,10 +88,24 @@ void Spaceship::move() {
 void Spaceship::shoot() 
 {
     jukebox3->playShot();
-    Projectile* tmp = new Projectile(position.x + (position.w / 2 - 19/*adjust this if needed*/), position.y + 20, 1, -6);
+    Projectile* tmp = new Projectile(position.x + (position.w / 2 - 19/*adjust this if needed*/), position.y + 20, PLAYER_PROJECTILE_SCALE, PLAYER_PROJECTILE_SPEED);
     CollisionManager::add(tmp, 0);
-    tmp = new Projectile(position.x + (position.w / 2 + 13/*adjust this if needed*/), position.y + 20, 1, -6);
+    tmp = new Projectile(position.x + (position.w / 2 + 13/*adjust this if needed*/), position.y + 20, PLAYER_PROJECTILE_SCALE, PLAYER_PROJECTILE_SPEED);
     CollisionManager::add(tmp, 0);
+}
+
+void Spaceship::render_hp()
+{
+    SDL_Rect hpRect;
+    hpRect.w = 20;
+    hpRect.h = 20;
+    hpRect.x = SCREEN_WIDTH - 152;
+    hpRect.y = 80;
+    for (int i = 0;i < hp;i++)
+    {
+        hpRect.x += 25;
+        SDL_RenderCopy(renderer, assetManagerS->GetTexture("hp"), NULL, &hpRect);
+    }
 }
 
 void Spaceship::render() {
