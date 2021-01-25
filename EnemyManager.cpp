@@ -146,7 +146,7 @@ void EnemyManager::randomShots()
 			int random = 0;
 			for (int i = 0; i < blueEnemies.size(); i++)
 			{
-				if (rand() % 3)
+				if (rand() % 4 == 1)
 					blueEnemies[i]->shoot();
 			}
 		}
