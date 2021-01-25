@@ -103,6 +103,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
             if (e->GetRectangle().y > SCREEN_HEIGHT)
             {
                 e->deactive();
+                spaceship.hit();
                 printf("Enemy out of range!");
             }
         }
@@ -128,6 +129,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
             if (e->GetRectangle().y > SCREEN_HEIGHT)
             {
                 e->deactive();
+                spaceship.hit();
                 printf("Enemy out of range!\n");
             }
         }
@@ -153,6 +155,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
             if (e->GetRectangle().y > SCREEN_HEIGHT)
             {
                 e->deactive();
+                spaceship.hit();
                 printf("Enemy out of range!\n");
             }
         }
@@ -178,6 +181,7 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
             if (e->GetRectangle().y > SCREEN_HEIGHT)
             {
                 e->deactive();
+                spaceship.hit();
                 printf("Enemy out of range!\n");
 
             }
