@@ -10,14 +10,13 @@ Select your operating system and then follow [tutorial.](https://lazyfoo.net/tut
 Select your operating system and then follow [tutorial.](https://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
 
 ### SDL_mixer
-Installation is almost the same as [sdl-image tutorial](https://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php) but make sure you download libsdl2-mixer-2.0-0
+Installation is the same as [sdl-image](https://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php) but make sure you download libsdl2-mixer-2.0-0
 
 # Installation
 1. clone [space-shooter repo](https://github.com/FranciszekPin/space-shooter)
 2. cd into this folder.
-3. run main.cpp in your IDE.
+3. run main.cpp in your IDE
 4. Have fun!
-
 
 # Game appearance
 ![game1](https://github.com/FranciszekPin/space-shooter/blob/main/assets/gl1.png)
