@@ -69,6 +69,14 @@ void EnemyManager::spawnMonsters()
 	}
 }
 
+void EnemyManager::eraseAll()
+{
+	greenEnemies.clear();
+	blueEnemies.clear();
+	redEnemies.clear();
+	yellowEnemies.clear();
+}
+
 void EnemyManager::moveAll()
 {
 	if (yellowEnemies.size() > 0) {

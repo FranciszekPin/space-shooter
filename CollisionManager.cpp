@@ -50,6 +50,12 @@ void CollisionManager::add(Projectile* tmp, bool isEnemy)
     }
 }
 
+void CollisionManager::eraseAll()
+{
+    friendlyProjectiles.clear();
+    enemyProjectiles.clear();
+}
+
 void CollisionManager::refresh()
 {
     enemyProjectiles.erase(std::remove_if(std::begin(enemyProjectiles), std::end(enemyProjectiles),
@@ -70,7 +76,7 @@ void CollisionManager::refresh()
 void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
 {
     SDL_Rect tmp;
-
+    SDL_Rect tmpPlayer = spaceship.getRect();
     for (auto& p : friendlyProjectiles) //updates friendly projectiles, draws them and checks if they collide with enemies
     {
         tmp = p->GetRectangle();
@@ -85,6 +91,15 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
                 p->destroy();
                 cout << "Blue enemy hit!\n";
             }
+            
+            if (Collision::AABB(e->GetRectangle(), tmpPlayer))
+            {
+                jukebox->playExplosion();
+                spaceship.hit();
+                e->deactive();
+                cout << "Collision between player and enemy!\n";
+            }
+
             if (e->GetRectangle().y > SCREEN_HEIGHT)
             {
                 e->deactive();
@@ -102,6 +117,14 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
                 p->destroy();
                 cout << "Yellow enemy hit!\n";
             }
+            if (Collision::AABB(e->GetRectangle(), tmpPlayer))
+            {
+                jukebox->playExplosion();
+                spaceship.hit();
+                e->deactive();
+                cout << "Collision between player and enemy!\n";
+            }
+
             if (e->GetRectangle().y > SCREEN_HEIGHT)
             {
                 e->deactive();
@@ -119,6 +142,14 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
                 p->destroy();
                 cout << "Green enemy hit!\n";
             }
+            if (Collision::AABB(e->GetRectangle(), tmpPlayer))
+            {
+                jukebox->playExplosion();
+                spaceship.hit();
+                e->deactive();
+                cout << "Collision between player and enemy!\n";
+            }
+
             if (e->GetRectangle().y > SCREEN_HEIGHT)
             {
                 e->deactive();
@@ -136,6 +167,14 @@ void CollisionManager::update(Spaceship& spaceship, EnemyManager& enemyManager)
                 p->destroy();
                 cout << "Red enemy hit!\n";
             }
+            if (Collision::AABB(e->GetRectangle(), tmpPlayer))
+            {
+                jukebox->playExplosion();
+                spaceship.hit();
+                e->deactive();
+                cout << "Collision between player and enemy!\n";
+            }
+
             if (e->GetRectangle().y > SCREEN_HEIGHT)
             {
                 e->deactive();

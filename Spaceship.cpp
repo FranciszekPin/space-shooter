@@ -32,9 +32,14 @@ Spaceship::Spaceship(SDL_Renderer *renderer, const char *imgSrc){
     this->renderer = renderer;
 }
 
+Spaceship::~Spaceship()
+{
+    SDL_DestroyTexture(spaceshipImg);
+}
+
 bool Spaceship::isAlive()
 {
-    if (hp == 0)return false;
+    if (hp <= 0)return false;
     else return true;
 }
 

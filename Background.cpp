@@ -8,7 +8,19 @@ AssetManager* assetManagerB = new AssetManager;
 
 Background::Background() {
 	assetManagerB->AddTexture("background", "assets/background.png");
-};
+}
+Background::Background(int x)
+{
+	assetManagerB->AddTexture("deathscreen", "assets/deathscreen.png");
+	SDL_Rect bg = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+	SDL_RenderCopy(GameManager::renderer, assetManagerB->GetTexture("deathscreen"), NULL, &bg);
+}
+
+void Background::render2()
+{
+	SDL_Rect bg = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+	SDL_RenderCopy(GameManager::renderer, assetManagerB->GetTexture("deathscreen"), NULL, &bg);
+}
 
 void Background::render() {
 

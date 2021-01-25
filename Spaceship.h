@@ -27,6 +27,7 @@ public:
     static const int SHIP_VELOCITY = PLAYER_SPEED;
 
     Spaceship(SDL_Renderer *renderer, const char *imgSrc);
+    ~Spaceship();
 
     bool isAlive();
     //Handles keys pressed

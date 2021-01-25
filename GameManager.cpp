@@ -8,7 +8,6 @@
 #include <ctime>
 #include "EnemyManager.h"
 #include"CollisionManager.h"
-
 #include "Background.h"
 
 SDL_Renderer* GameManager::renderer = nullptr;
@@ -52,7 +51,6 @@ bool GameManager::init() {
 }
 
 int GameManager::startGame() {
-
     double duration;
     double lastTime = (std::clock()) / (double)CLOCKS_PER_SEC;
     double deltaTime = 0;
@@ -71,6 +69,13 @@ int GameManager::startGame() {
     Enemy::init();
 
     while (1) {
+        if (!spaceship.isAlive())
+        {
+            enemyManager.eraseAll();
+            CollisionManager::eraseAll();
+            return 1;
+        }
+
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
@@ -96,16 +101,15 @@ int GameManager::startGame() {
             // adding all render objects should be done before this function
 
             B.render();
-            zegar.render();
 
             CollisionManager::update(spaceship, enemyManager);
             CollisionManager::refresh();
             enemyManager.destroyInactive();
-            secs = zegar.getTime().x + zegar.getTime().y * 10;
-            if ((secs % 18 > 15) && (enemyManager.shootDelay2 > 20))
-                enemyManager.shootDelay2 -= 4;
-            if ((secs % 50 > 45) && (enemyManager.monstersSpeed < 4))
-                enemyManager.monstersSpeed += 1;
+           // secs = zegar.getTime().x + zegar.getTime().y * 10;
+           // if ((secs % 18 > 15) && (enemyManager.shootDelay2 > 20))
+           //     enemyManager.shootDelay2 -= 4;
+           // if ((secs % 50 > 45) && (enemyManager.monstersSpeed < 4))
+           //     enemyManager.monstersSpeed += 1;
 
             enemyManager.spawnMonsters();
             spaceship.move();
@@ -114,13 +118,44 @@ int GameManager::startGame() {
             CollisionManager::render();
             zegar.render();
             enemyManager.moveAll();
-            spaceship.render_hp();
             spaceship.render();
+            zegar.render();
+            spaceship.render_hp();
 
             SDL_RenderPresent(renderer);
         }
 
     }
+}
+
+void GameManager::playGame()
+{
+    SDL_Event e;
+    Background B(123);
+start:
+    while (startGame())
+    {
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_RenderClear(renderer);
+        B.render2();
+        SDL_RenderPresent(renderer);
+        SDL_Delay(2000);
+        while (1)
+        {
+            while (SDL_PollEvent(&e) != 0)
+            {
+                if (e.type == SDL_QUIT)
+                {
+                    return;
+                }
+                if (e.key.keysym.sym == SDLK_SPACE)
+                {
+                    goto start;
+                }
+            }
+        }
+    }
+        
 }
 
 GameManager::~GameManager() {

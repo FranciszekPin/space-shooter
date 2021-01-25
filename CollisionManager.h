@@ -13,5 +13,6 @@ public:
 	static void update(Spaceship& spaceship, EnemyManager& enemyManager);
 	static void render();
 	static void add(Projectile* tmp, bool isEnenmy);
+	static void eraseAll();
 private:
 };

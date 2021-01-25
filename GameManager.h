@@ -16,6 +16,7 @@ public:
     GameManager();
     bool init();
     int startGame();
+    void playGame();
     ~GameManager();
 };
 

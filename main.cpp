@@ -7,7 +7,7 @@
 int main(int argc, char* args[]) {
     GameManager gameManager;
     gameManager.init();
-    gameManager.startGame();
+    gameManager.playGame();
 
     return 0;
 }

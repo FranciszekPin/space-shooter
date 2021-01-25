@@ -20,6 +20,7 @@ public:
 	vector<unique_ptr<Enemy> > blueEnemies;
 	vector<unique_ptr<Enemy> > greenEnemies;
 	vector<unique_ptr<Enemy> > yellowEnemies;
+	void eraseAll();
 	void moveAll();
 	void randomShots();
 	void spawnMonsters();
